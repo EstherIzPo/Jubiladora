@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Jubilación España 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f5f4f1;color:#1a1a1a;min-height:100vh}
+.app{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+.header{text-align:center;padding:2.5rem 0 2rem}
+.header h1{font-size:28px;font-weight:600;color:#1a1a1a;letter-spacing:-0.5px}
+.header p{font-size:14px;color:#999;margin-top:6px}
+.tabs{display:flex;background:#e8e8e6;border-radius:12px;padding:4px;margin-bottom:1.5rem;gap:3px;flex-wrap:wrap}
+.tab{flex:1;min-width:80px;padding:9px 6px;text-align:center;font-size:13px;cursor:pointer;border:none;background:transparent;color:#666;border-radius:9px;transition:all .2s;font-family:inherit}
+.tab.active{background:#fff;color:#1a1a1a;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,0.10)}
+.section{background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:1.4rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.6px;margin-bottom:1rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:13px;color:#666;font-weight:500}
+.field input,.field select{padding:10px 13px;border:1px solid #ddd;border-radius:9px;font-size:14px;font-family:inherit;background:#fff;color:#1a1a1a;width:100%;transition:border .15s}
+.field input:focus,.field select:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.field .hint{font-size:11px;color:#aaa;margin-top:2px}
+.btn-primary{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:-0.2px;transition:opacity .2s}
+.btn-primary:hover{opacity:.85}
+.hidden{display:none}
+.result-header{text-align:center;padding:1.2rem 0 1.6rem}
+.pension-amount{font-size:46px;font-weight:700;color:#1a1a1a;letter-spacing:-2px}
+.pension-label{font-size:14px;color:#888;margin-top:4px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1rem}
+.metric{background:#f8f8f6;border-radius:10px;padding:14px 12px}
+.metric-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;font-weight:600}
+.metric-value{font-size:20px;font-weight:700;color:#1a1a1a}
+.metric-sub{font-size:11px;color:#aaa;margin-top:2px}
+.alert{border-radius:10px;padding:13px 15px;font-size:13px;margin-bottom:1rem;border-left:3px solid;line-height:1.5}
+.alert-info{background:#eef4ff;color:#1e40af;border-color:#2563eb}
+.alert-warning{background:#fffbeb;color:#92400e;border-color:#d97706}
+.alert-success{background:#f0fdf4;color:#166534;border-color:#16a34a}
+.alert-danger{background:#fef2f2;color:#991b1b;border-color:#dc2626}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.detail-row:last-child{border-bottom:none}
+.detail-label{color:#666}
+.detail-value{font-weight:600;color:#1a1a1a}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-info{background:#dbeafe;color:#1e40af}
+.timeline{position:relative;padding:0 0 0 30px}
+.timeline::before{content:'';position:absolute;left:9px;top:10px;bottom:10px;width:1.5px;background:#e5e5e5}
+.t-item{position:relative;margin-bottom:20px}
+.t-dot{position:absolute;left:-26px;width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;top:1px;box-shadow:0 0 0 1.5px #e5e5e5}
+.t-dot-green{background:#16a34a}
+.t-dot-blue{background:#2563eb}
+.t-dot-amber{background:#d97706}
+.t-dot-gray{background:#9ca3af}
+.t-dot-red{background:#dc2626}
+.t-date{font-size:11px;color:#999;margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.t-title{font-size:14px;font-weight:600;color:#1a1a1a}
+.t-desc{font-size:13px;color:#666;margin-top:3px;line-height:1.55}
+.mejora-card{border:1px solid #ebebeb;border-radius:12px;padding:15px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;transition:box-shadow .15s}
+.mejora-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mejora-icon{font-size:24px;flex-shrink:0;margin-top:1px}
+.mejora-title{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.mejora-desc{font-size:13px;color:#666;line-height:1.5}
+.mejora-gain{font-size:13px;font-weight:600;color:#16a34a;margin-top:5px}
+.novedad-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.novedad-item:last-child{border-bottom:none}
+.nv-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.form-doc{background:#f8f8f6;border-radius:12px;padding:1.4rem;border:1px solid #ebebeb}
+.form-doc-title{font-size:15px;font-weight:600;margin-bottom:1rem;color:#1a1a1a}
+.doc-field{margin-bottom:10px}
+.doc-field label{font-size:12px;color:#666;display:block;margin-bottom:4px;font-weight:500}
+.doc-field input{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;color:#1a1a1a;font-family:inherit}
+.doc-preview{background:#fff;border:1px solid #ddd;border-radius:12px;padding:2rem;margin-top:1rem;font-size:13px;line-height:1.9;color:#1a1a1a}
+.doc-preview h3{font-size:15px;text-align:center;margin-bottom:1.2rem;font-weight:700}
+.btn-outline{padding:10px 20px;background:#fff;border:1px solid #ddd;border-radius:9px;font-size:13px;cursor:pointer;font-family:inherit;color:#1a1a1a;transition:background .15s;font-weight:500}
+.btn-outline:hover{background:#f5f5f3}
+.disclaimer{background:#fffbeb;border-radius:10px;padding:13px 15px;font-size:12px;color:#78350f;line-height:1.6;border:1px solid #fde68a;border-left:3px solid #d97706}
+.regime-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
+.rt-btn{padding:16px;border:1.5px solid #e5e5e5;border-radius:12px;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
+.rt-btn.active{border-color:#1a1a1a;background:#f8f8f6}
+.rt-label{font-size:15px;font-weight:600;color:#1a1a1a}
+.rt-sub{font-size:12px;color:#999;margin-top:3px}
+.progress-bar{height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;margin:6px 0}
+.progress-fill{height:100%;border-radius:4px;background:#1a1a1a;transition:width .6s ease}
+.pension-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem}
+.pension-card{border-radius:14px;padding:1.4rem;text-align:center}
+.pension-card-blue{background:#eef4ff}
+.pension-card-green{background:#f0fdf4}
+.pension-card .label{font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.pension-card .amount{font-size:32px;font-weight:700;letter-spacing:-1px}
+.pension-card-blue .amount{color:#1e40af}
+.pension-card-green .amount{color:#166534}
+.pension-card .sub{font-size:12px;color:#999;margin-top:4px}
+.error-msg{color:#dc2626;font-size:12px;margin-top:4px;display:none}
+.field.error input,.field.error select{border-color:#dc2626}
+@media(max-width:640px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .pension-cards{grid-template-columns:1fr}
+  .tabs{gap:2px}
+  .tab{font-size:11px;padding:8px 4px}
+  .pension-amount{font-size:36px}
+}
+@media print{
+  body{background:#fff}
+  .btn-primary,.btn-outline,.tabs,.no-print{display:none!important}
+  .hidden{display:none!important}
+  #page-input{display:none!important}
+  .section{break-inside:avoid;border:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+<!-- MODAL INFORMATIVO DE REQUISITOS -->
+<div id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="modal-titulo">Informacion de requisitos</h2>
+      <button class="modal-close" onclick="cerrarModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body" id="modal-cuerpo"></div>
+    <div class="modal-footer"><button onclick="cerrarModal()">Entendido</button></div>
+  </div>
+</div>
+
+<div class="app">
+  <div class="header">
+    <h1>Calculadora de Jubilación</h1>
+    <p>España 2026 · Normativa vigente LGSS · Reformas 2021–2023 · Cómputo dual obligatorio</p>
+  </div>
+
+  <!-- INPUT PAGE -->
+  <div id="page-input">
+    <div class="section">
+      <div class="section-title">Régimen de cotización</div>
+      <div class="regime-toggle">
+        <div class="rt-btn active" id="btn-general" onclick="setRegime('general')">
+          <div class="rt-label">🏢 Régimen General</div>
+          <div class="rt-sub">Trabajador por cuenta ajena</div>
+        </div>
+        <div class="rt-btn" id="btn-autonomo" onclick="setRegime('autonomo')">
+          <div class="rt-label">🧾 Autónomos (RETA)</div>
+          <div class="rt-sub">Trabajador por cuenta propia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Datos personales</div>
+      <div class="grid-2">
+        <div class="field" id="field-fechaNac">
+          <label>Fecha de nacimiento</label>
+          <input type="date" id="fechaNac" value="1968-06-15">
+          <span class="hint">Desde 1940 hasta hace 18 años (min. cotización)</span>
+          <span class="error-msg" id="err-fechaNac">Fecha no válida</span>
+        </div>
+        <div class="field" id="field-fechaJub">
+          <label>Fecha prevista de jubilación</label>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <input type="date" id="fechaJub" style="flex:1;min-width:160px" onchange="actualizarProyeccionCotizados()">
+            <button type="button" onclick="calcularFechaAuto()"
+              style="padding:9px 13px;background:#1a1a1a;color:#fff;border:none;border-radius:9px;
+              font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap;font-weight:500">
+              ⚡ Auto
+            </button>
+          </div>
+          <span class="hint">Déjalo vacío y pulsa ⚡ Auto para calcular tu fecha óptima</span>
+          <div id="hint-fecha-jub" style="display:none;margin-top:5px;padding:7px 10px;
+            background:#f0fdf4;border-radius:7px;border-left:3px solid #16a34a;font-size:12px;font-weight:500;color:#166534"></div>
+          <span class="error-msg" id="err-fechaJub">Debe ser una fecha futura</span>
+        </div>
+        <div class="field" id="field-anyosCotizados">
+          <label>Años cotizados a fecha de hoy</label>
+          <input type="number" id="anyosCotizados" value="28" min="0" max="52" step="0.5"
+            placeholder="Ej: 28" oninput="actualizarProyeccionCotizados()">
+          <span class="hint">Consulta tu vida laboral en importa.gob.es</span>
+          <div id="proyeccion-cot-box" style="display:none;margin-top:6px;padding:8px 11px;
+            background:#eef4ff;border-radius:8px;border-left:3px solid #2563eb;font-size:12px;line-height:1.6">
+          </div>
+        </div>
+        <div class="field">
+          <label>Base de cotización bruta mensual (€)</label>
+          <input type="number" id="salario" value="2200" min="0" max="15000" placeholder="Ej: 2200">
+          <span class="hint">No el neto; la base por la que cotizas (ver nómina)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="sec-autonomo" style="display:none">
+      <div class="section-title">Datos específicos RETA (Autónomos)</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Base de cotización elegida (€/mes)</label>
+          <input type="number" id="baseAutonomo" value="1000" min="653" max="4720" step="1">
+          <span class="hint">Mín. 653,59 € · Máx. 4.720,50 € (2026)</span>
+        </div>
+        <div class="field">
+          <label>Rendimiento neto anual actividad (€)</label>
+          <input type="number" id="rendimientoNeto" value="25000" min="0" step="100">
+          <span class="hint">Ingresos - gastos deducibles (antes de SS)</span>
+        </div>
+        <div class="field">
+          <label>Tramo de rendimiento neto mensual</label>
+          <select id="tramoAutonomo">
+            <option value="1">Tramo 1: hasta 670 €/mes</option>
+            <option value="2">Tramo 2: 670 – 900 €/mes</option>
+            <option value="3">Tramo 3: 900 – 1.166 €/mes</option>
+            <option value="4">Tramo 4: 1.166 – 1.300 €/mes</option>
+            <option value="5">Tramo 5: 1.300 – 1.500 €/mes</option>
+            <option value="6" selected>Tramo 6: 1.500 – 1.700 €/mes</option>
+            <option value="7">Tramo 7: 1.700 – 1.850 €/mes</option>
+            <option value="8">Tramo 8: 1.850 – 2.030 €/mes</option>
+            <option value="9">Tramo 9: 2.030 – 2.330 €/mes</option>
+            <option value="10">Tramo 10: 2.330 – 2.760 €/mes</option>
+            <option value="11">Tramo 11: 2.760 – 3.190 €/mes</option>
+            <option value="12">Tramo 12: 3.190 – 3.620 €/mes</option>
+            <option value="13">Tramo 13: 3.620 – 4.050 €/mes</option>
+            <option value="14">Tramo 14: 4.050 – 6.000 €/mes</option>
+            <option value="15">Tramo 15: más de 6.000 €/mes</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cotización para cese de actividad</label>
+          <select id="ceseCotizacion">
+            <option value="si">Sí cotizo (0.90%)</option>
+            <option value="no">No cotizo</option>
+          </select>
+          <span class="hint">Equivalente al desempleo en autónomos</span>
+        </div>
+      </div>
+      <div class="alert alert-info" style="margin-top:12px">
+        <strong>RETA 2026:</strong> Nuevo sistema por rendimientos netos reales vigente desde 2023. Regularización anual en enero. Bases mín./máx. iguales que Régimen General a partir del tramo 14.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Modalidad y condiciones</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Modalidad de jubilación</label>
+          <select id="modalidad">
+            <option value="ordinaria">Ordinaria (a la edad legal)</option>
+            <option value="anticipada_voluntaria">Anticipada voluntaria (mín. 35 años cotizados)</option>
+            <option value="anticipada_involuntaria">Anticipada involuntaria (despido / ERTE)</option>
+            <option value="demorada">Demorada (más allá de la edad legal)</option>
+            <option value="activa">Jubilación activa (compatible con trabajo)</option>
+            <option value="parcial">Jubilación parcial (reducción de jornada)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Lagunas de cotización (meses sin cotizar)</label>
+          <input type="number" id="lagunas" value="0" min="0" max="360" placeholder="0">
+          <span class="hint">Se rellenan con base mínima del año correspondiente</span>
+        </div>
+        <div class="field">
+          <label>Sistema de cómputo base reguladora</label>
+          <select id="sistemaBR">
+            <option value="auto">Automático — el más favorable (recomendado)</option>
+            <option value="25">Forzar 25 últimos años</option>
+            <option value="29">Forzar 29 años menos 2 peores (27 netos)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Complemento brecha de género (hijos/as)</label>
+          <select id="brecha">
+            <option value="0">Sin complemento</option>
+            <option value="1">1 hijo/a (+3.5%)</option>
+            <option value="2">2 hijos/as (+5%)</option>
+            <option value="3">3 o más hijos/as (+7%)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Ahorro complementario y proyección (opcional)</div>
+      <div class="grid-3">
+        <div class="field">
+          <label>Plan pensiones privado (€/mes)</label>
+          <input type="number" id="planPensiones" value="0" min="0" placeholder="0">
+          <span class="hint">Pilar 3 — individual</span>
+        </div>
+        <div class="field">
+          <label>Plan de empresa / colectivo (€/mes)</label>
+          <input type="number" id="planEmpresa" value="0" min="0" placeholder="0">
+          <span class="hint">Pilar 2 — empresa</span>
+        </div>
+        <div class="field">
+          <label>IPC estimado anual (%)</label>
+          <input type="number" id="ipc" value="2.5" min="0" max="15" step="0.1" placeholder="2.5">
+          <span class="hint">Para proyección de la pensión futura</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="calcular()">Calcular mi jubilación →</button>
+    <div style="height:14px"></div>
+    <div class="disclaimer">
+      <strong>⚠ Aviso legal:</strong> Esta calculadora ofrece estimaciones orientativas basadas en la normativa vigente a abril de 2026 (LGSS RDL 8/2015, RDL 2/2023, Ley 21/2021). Los cálculos definitivos corresponden al INSS. La normativa puede modificarse por decisión legislativa. No constituye asesoramiento jurídico ni financiero.
+    </div>
+  </div>
+
+  <!-- RESULT PAGE -->
+  <div id="page-result" class="hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem" class="no-print">
+      <button class="btn-outline" onclick="volverInput()">← Recalcular</button>
+      <button class="btn-outline" onclick="abrirInformeImpresion()">🖨 Imprimir informe completo</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('resumen')">Resumen</button>
+      <button class="tab" onclick="showTab('desglose')">Desglose</button>
+      <button class="tab" onclick="showTab('timeline')">Hoja de ruta</button>
+      <button class="tab" onclick="showTab('mejoras')">Mejoras</button>
+      <button class="tab" onclick="showTab('novedades')">Novedades 2026</button>
+      <button class="tab" onclick="showTab('documento')">Carta empresa</button>
+    </div>
+
+    <!-- TAB RESUMEN -->
+    <div id="tab-resumen">
+      <div id="alert-modalidad-box"></div>
+      <div id="info-edad-box" style="background:#f8f8f6;border-radius:10px;padding:11px 14px;
+        margin-bottom:12px;font-size:13px;color:#444;border-left:3px solid #888;display:none"></div>
+
+      <div class="pension-cards">
+        <div class="pension-card pension-card-blue">
+          <div class="label">Pensión mensual bruta</div>
+          <div class="amount" id="res-pension-bruta">—</div>
+          <div class="sub">14 pagas · antes de IRPF</div>
+        </div>
+        <div class="pension-card pension-card-green">
+          <div class="label">Pensión mensual neta</div>
+          <div class="amount" id="res-pension-neta">—</div>
+          <div class="sub">Estimación tras IRPF</div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Edad al jubilarse</div>
+          <div class="metric-value" id="met-edad">—</div>
+          <div class="metric-sub" id="met-edad-sub">años</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Años cotizados</div>
+          <div class="metric-value" id="met-cotizados">—</div>
+          <div class="metric-sub">al jubilarse</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Base reguladora</div>
+          <div class="metric-value" id="met-br">—</div>
+          <div class="metric-sub" id="met-br-sistema">€/mes</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">% aplicado</div>
+          <div class="metric-value" id="met-pct">—</div>
+          <div class="metric-sub">sobre BR</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Tasa de reemplazo (% del salario cubierto)</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+          <span style="color:#666">Solo pensión pública</span>
+          <span id="tr-pct" style="font-weight:600">—</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="tr-bar" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin:10px 0 4px">
+          <span style="color:#666">Con planes privados / empresa</span>
+          <span id="tr-pct2" style="font-weight:600">—</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="tr-bar2" style="width:0%;background:#16a34a"></div></div>
+        <div style="font-size:11px;color:#aaa;margin-top:8px">Porcentaje del último salario/base cubierto por la pensión total</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Proyección con revalorización IPC estimada</div>
+        <div id="proyeccion-ipc" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center"></div>
+        <div style="font-size:11px;color:#aaa;margin-top:8px;text-align:center" id="proyeccion-nota"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Resumen fiscal anual estimado</div>
+        <div id="fiscal-resumen"></div>
+      </div>
+    </div>
+
+    <!-- TAB DESGLOSE -->
+    <div id="tab-desglose" class="hidden">
+      <div class="section">
+        <div class="section-title">Cálculo paso a paso</div>
+        <div id="desglose-content"></div>
+      </div>
+      <div class="section" id="sec-reta-extra" style="display:none">
+        <div class="section-title">Especificidades RETA — Autónomos</div>
+        <div id="reta-content"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Comparativa cómputo 25 años vs 27 años (29-2 peores)</div>
+        <div id="computo-comparativa"></div>
+        <div style="font-size:12px;color:#aaa;margin-top:10px">
+          Desde 2026, la Seguridad Social aplica de oficio el sistema más favorable (obligatorio hasta 2044). La calculadora replica esta lógica automáticamente.
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Detalle coeficiente MEI 2026</div>
+        <div id="mei-content"></div>
+      </div>
+    </div>
+
+    <!-- TAB TIMELINE -->
+    <div id="tab-timeline" class="hidden">
+      <div class="section">
+        <div class="section-title">Tu hoja de ruta personalizada hacia la jubilación</div>
+        <div class="timeline" id="timeline-content"></div>
+      </div>
+    </div>
+
+    <!-- TAB MEJORAS -->
+    <div id="tab-mejoras" class="hidden">
+      <div class="section">
+        <div class="section-title">Propuestas de optimización personalizadas</div>
+        <div id="mejoras-content"></div>
+      </div>
+    </div>
+
+    <!-- TAB NOVEDADES -->
+    <div id="tab-novedades" class="hidden">
+      <div class="section">
+        <div class="section-title">Novedades, limitaciones y cuestiones clave 2026</div>
+        <div id="novedades-content"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Recursos oficiales</div>
+        <div id="recursos-content"></div>
+      </div>
+    </div>
+
+    <!-- TAB DOCUMENTO -->
+    <div id="tab-documento" class="hidden">
+      <div class="section">
+        <div class="section-title">Carta de comunicación de jubilación a la empresa</div>
+        <div class="form-doc">
+          <div class="form-doc-title">Completa los datos para generar el documento</div>
+          <div class="grid-2">
+            <div class="doc-field"><label>Tu nombre completo</label><input type="text" id="doc-nombre" placeholder="Nombre Apellido Apellido"></div>
+            <div class="doc-field"><label>DNI / NIE</label><input type="text" id="doc-dni" placeholder="12345678A"></div>
+            <div class="doc-field">
+              <label>Tu género (para redactar la carta)</label>
+              <select id="doc-genero">
+                <option value="f">Femenino — Dña. / trabajadora / la firmante</option>
+                <option value="m">Masculino — D. / trabajador / el firmante</option>
+              </select>
+            </div>
+            <div class="doc-field">
+              <label>Modalidad de jubilación solicitada</label>
+              <select id="doc-modalidad">
+                <option value="ordinaria">Ordinaria</option>
+                <option value="anticipada_voluntaria">Anticipada voluntaria</option>
+                <option value="anticipada_involuntaria">Anticipada involuntaria (despido/ERE)</option>
+                <option value="demorada">Demorada</option>
+                <option value="activa">Activa (compatible con trabajo)</option>
+                <option value="parcial">Parcial (reducción de jornada)</option>
+              </select>
+            </div>
+            <div class="doc-field"><label>Nombre de la empresa</label><input type="text" id="doc-empresa" placeholder="Empresa S.L."></div>
+            <div class="doc-field"><label>CIF de la empresa</label><input type="text" id="doc-cif" placeholder="B12345678"></div>
+            <div class="doc-field"><label>Responsable de RRHH (nombre y cargo)</label><input type="text" id="doc-rrhh" placeholder="Nombre del responsable de RRHH"></div>
+            <div class="doc-field"><label>Fecha prevista último día laboral</label><input type="date" id="doc-fecha-ult"></div>
+            <div class="doc-field"><label>Ciudad</label><input type="text" id="doc-ciudad" placeholder="Málaga"></div>
+            <div class="doc-field"><label>Fecha del documento</label><input type="date" id="doc-fecha"></div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-outline" onclick="generarDoc()">Previsualizar documento</button>
+            <button class="btn-outline" onclick="imprimirDoc()">🖨 Imprimir / Guardar PDF</button>
+          </div>
+        </div>
+        <div class="doc-preview hidden" id="doc-preview-box">
+          <div id="doc-preview-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── ESTADO ────────────────────────────────────────────────────────────────
+let regime = 'general';
+let resultData = {};
+const HOY = new Date('2026-04-18');
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+(function init() {
+  // Fecha nacimiento: mín 1940, máx hace 18 años desde hoy (mínimo cotizante)
+  const maxNac = new Date(HOY);
+  maxNac.setFullYear(maxNac.getFullYear() - 18);
+  const fnNac = document.getElementById('fechaNac');
+  fnNac.min = '1940-01-01';
+  fnNac.max = maxNac.toISOString().split('T')[0];
+
+  // Fecha jubilación: mín mañana (sin valor por defecto — el usuario elige o pulsa Auto)
+  const manana = new Date(HOY);
+  manana.setDate(manana.getDate() + 1);
+  const fjub = document.getElementById('fechaJub');
+  fjub.min = manana.toISOString().split('T')[0];
+  fjub.value = ''; // vacío por defecto
+
+  // Fecha documento por defecto
+  const fd = document.getElementById('doc-fecha');
+  if (fd) fd.value = HOY.toISOString().split('T')[0];
+
+  // Escuchar cambios en fechaNac y cotizados para actualizar proyección
+  document.getElementById('fechaNac').addEventListener('change', actualizarProyeccionCotizados);
+  document.getElementById('modalidad').addEventListener('change', actualizarProyeccionCotizados);
+})();
+
+// ─── CALCULAR FECHA AUTOMÁTICA ────────────────────────────────────────────
+// Calcula la fecha en que el trabajador alcanza su edad ordinaria de jubilación
+// Tiene en cuenta que la edad legal depende de los años cotizados (circular):
+// lo resolvemos iterando: primero asumimos 66a10m, calculamos cotización y verificamos.
+function calcularFechaAuto() {
+  const fnNac = document.getElementById('fechaNac');
+  if (!fnNac.value) {
+    alert('Introduce primero tu fecha de nacimiento.');
+    fnNac.focus();
+    return;
+  }
+  const fechaNac = new Date(fnNac.value);
+  const anyosCot = parseFloat(document.getElementById('anyosCotizados').value) || 0;
+
+  // Iteración para resolver la circularidad:
+  // La edad legal depende de los años cotizados al jubilarse,
+  // que a su vez dependen de la fecha de jubilación.
+  // Resolvemos en 2 pasos (converge siempre en 2 iteraciones):
+
+  function fechaConEdad(nac, anios, meses) {
+    // Sumar años y meses a la fecha de nacimiento de forma segura
+    const d = new Date(nac);
+    const totalMeses = d.getMonth() + anios * 12 + meses;
+    d.setFullYear(d.getFullYear() + Math.floor(totalMeses / 12 - d.getMonth() / 12));
+    // Más robusto:
+    const nuevoAnio = nac.getFullYear() + anios + Math.floor((nac.getMonth() + meses) / 12);
+    const nuevoMes = (nac.getMonth() + meses) % 12;
+    return new Date(nuevoAnio, nuevoMes, nac.getDate());
+  }
+
+  // Paso 1: asumir edad legal = 66a10m
+  let candidata = fechaConEdad(fechaNac, 66, 10);
+  let diasFalta = Math.max(0, (candidata - HOY) / (1000*60*60*24));
+  let cotFinal = anyosCot + diasFalta / 365.25;
+  let edadLegal = cotFinal >= 38.25 ? {a:65,m:0} : {a:66,m:10};
+
+  // Paso 2: recalcular con la edad real
+  candidata = fechaConEdad(fechaNac, edadLegal.a, edadLegal.m);
+  diasFalta = Math.max(0, (candidata - HOY) / (1000*60*60*24));
+  cotFinal = anyosCot + diasFalta / 365.25;
+  // Verificar si con esa cotización la edad es consistente
+  const edadLegalFinal = cotFinal >= 38.25 ? {a:65,m:0} : {a:66,m:10};
+  candidata = fechaConEdad(fechaNac, edadLegalFinal.a, edadLegalFinal.m);
+
+  // Validar que es fecha futura
+  if (candidata <= HOY) {
+    document.getElementById('hint-fecha-jub').style.display = 'block';
+    document.getElementById('hint-fecha-jub').style.background = '#fef2f2';
+    document.getElementById('hint-fecha-jub').style.borderColor = '#dc2626';
+    document.getElementById('hint-fecha-jub').style.color = '#991b1b';
+    document.getElementById('hint-fecha-jub').textContent =
+      'Ya has superado tu edad ordinaria de jubilación (' + edadLegalFinal.a + 'a ' +
+      edadLegalFinal.m + 'm). Contacta con el INSS para tramitar tu pensión.';
+    return;
+  }
+
+  // Asignar la fecha calculada
+  const iso = candidata.toISOString().split('T')[0];
+  document.getElementById('fechaJub').value = iso;
+
+  // Mostrar información
+  const hint = document.getElementById('hint-fecha-jub');
+  hint.style.display = 'block';
+  hint.style.background = '#f0fdf4';
+  hint.style.borderColor = '#16a34a';
+  hint.style.color = '#166534';
+  hint.textContent = '⚡ Fecha calculada: alcanzas los ' + edadLegalFinal.a + ' años' +
+    (edadLegalFinal.m > 0 ? ' y ' + edadLegalFinal.m + ' meses' : '') +
+    ' el ' + candidata.toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'}) +
+    ' con ~' + cotFinal.toFixed(1) + ' años cotizados.';
+
+  actualizarProyeccionCotizados();
+}
+
+// ─── PROYECCIÓN COTIZADOS (live) ──────────────────────────────────────────
+// Muestra en tiempo real los años que se habrán cotizado a la fecha de jubilación
+function actualizarProyeccionCotizados() {
+  const fnNac = document.getElementById('fechaNac');
+  const fjub = document.getElementById('fechaJub');
+  const anyosCot = parseFloat(document.getElementById('anyosCotizados').value) || 0;
+  const modalidad = document.getElementById('modalidad').value;
+  const box = document.getElementById('proyeccion-cot-box');
+  if (!box) return;
+
+  if (!fjub.value || !fnNac.value) {
+    box.style.display = 'none';
+    return;
+  }
+
+  const fechaNac = new Date(fnNac.value);
+  const fechaJub = new Date(fjub.value);
+  if (fechaJub <= HOY) { box.style.display = 'none'; return; }
+
+  const diasFalta = (fechaJub - HOY) / (1000*60*60*24);
+  const anyosFalta = Math.max(0, diasFalta / 365.25);
+  const cotFinal = anyosCot + anyosFalta;
+
+  // Edad legal
+  const edadLegalDecimal = cotFinal >= 38.25 ? 65 : 66 + 10/12;
+  const edadLegalAnios = cotFinal >= 38.25 ? 65 : 66;
+  const edadLegalMeses = cotFinal >= 38.25 ? 0 : 10;
+
+  // Pct BR con cotización proyectada
+  const mesesCotProyectados = cotFinal * 12;
+  const pctProyectado = calcPctBR(mesesCotProyectados);
+
+  // Requisitos modalidad
+  const minCot = {
+    ordinaria: 15, anticipada_voluntaria: 35,
+    anticipada_involuntaria: 33, demorada: 15, activa: 15, parcial: 33
+  }[modalidad] || 15;
+  const cumple = cotFinal >= minCot;
+
+  box.style.display = 'block';
+  box.innerHTML =
+    '<strong>Proyección a fecha de jubilación:</strong><br>' +
+    '📅 Años cotizados al jubilarse: <strong>' + cotFinal.toFixed(1) + ' años</strong>' +
+    (cotFinal >= 38.25
+      ? ' — Edad legal: <strong>65 años</strong>'
+      : ' — Edad legal: <strong>66 años y 10 meses</strong>') +
+    '<br>📊 % sobre BR proyectado: <strong>' + pctProyectado.toFixed(2) + '%</strong>' +
+    '<br>' + (cumple
+      ? '<span style="color:#166534">✓ Cumples el mínimo de ' + minCot + ' años para esta modalidad</span>'
+      : '<span style="color:#dc2626">✗ Esta modalidad requiere ' + minCot + ' años — al jubilarte tendrás ' + cotFinal.toFixed(1) + '</span>');
+}
+
+// ─── RÉGIMEN ───────────────────────────────────────────────────────────────
+function setRegime(r) {
+  regime = r;
+  document.getElementById('btn-general').classList.toggle('active', r === 'general');
+  document.getElementById('btn-autonomo').classList.toggle('active', r === 'autonomo');
+  document.getElementById('sec-autonomo').style.display = r === 'autonomo' ? 'block' : 'none';
+}
+
+// ─── MODAL ─────────────────────────────────────────────────────────────────
+function mostrarModal(titulo, contenido) {
+  document.getElementById('modal-titulo').textContent = titulo;
+  document.getElementById('modal-cuerpo').innerHTML = contenido;
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+function cerrarModal() {
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'modal-overlay') cerrarModal();
+});
+
+// ─── HELPERS NORMATIVOS ────────────────────────────────────────────────────
+
+// Edad exacta en decimal (años + fracción) en una fecha de referencia
+function edadExacta(fechaNac, fechaRef) {
+  let anios = fechaRef.getFullYear() - fechaNac.getFullYear();
+  const mDif = fechaRef.getMonth() - fechaNac.getMonth();
+  const dDif = fechaRef.getDate() - fechaNac.getDate();
+  if (mDif < 0 || (mDif === 0 && dDif < 0)) anios--;
+  const cumple = new Date(fechaRef.getFullYear(), fechaNac.getMonth(), fechaNac.getDate());
+  if (cumple > fechaRef) cumple.setFullYear(fechaRef.getFullYear() - 1);
+  const nextCumple = new Date(cumple.getFullYear() + 1, fechaNac.getMonth(), fechaNac.getDate());
+  const fraccion = (fechaRef - cumple) / (nextCumple - cumple);
+  return anios + fraccion;
+}
+
+// Edad legal ordinaria 2026 según LGSS art. 205
+// >= 38 años y 3 meses cotizados => 65 años
+// < 38 años y 3 meses cotizados  => 66 años y 10 meses
+function calcEdadLegal(anyosCotizados) {
+  if (anyosCotizados >= 38.25) return { anios: 65, meses: 0, decimal: 65 };
+  return { anios: 66, meses: 10, decimal: 66 + 10/12 };
+}
+
+// Fecha exacta en que el trabajador cumple la edad legal
+function fechaCumpleEdadLegal(fechaNac, edadLegalAnios, edadLegalMeses) {
+  const d = new Date(fechaNac);
+  d.setFullYear(d.getFullYear() + edadLegalAnios);
+  d.setMonth(d.getMonth() + edadLegalMeses);
+  return d;
+}
+
+// % sobre BR según meses cotizados completos — tabla oficial LGSS art. 210 (2024)
+// 15 años (180 meses) = 50%
+// Meses 181-300 (años 16-25): +0.21% por mes adicional
+// Meses 301 en adelante (año 26+): +0.19% por mes adicional
+// El 100% se alcanza al completar: 180 + 120 + ((100-50-25.2)/0.19) = ~639 meses ≈ 53 años
+// Pero se limita al 100% en cualquier caso y la normativa fija que con ~36 años y 3 meses
+// se puede llegar al 100% con la tabla anterior. Con la tabla 2024:
+// 180m(50%) + 120m×0.21%(25.2%) + X×0.19% = 100% => X = (100-75.2)/0.19 = 130.5 meses
+// Total: 180+120+131 = 431 meses ≈ 35 años 11 meses para llegar al 100%
+function calcPctBR(mesesCotizados) {
+  const m = Math.floor(Math.max(0, mesesCotizados));
+  if (m < 180) return 0;
+  let pct = 50;
+  const extra1 = Math.min(m - 180, 120); // meses del año 16 al 25
+  pct += extra1 * 0.21;
+  if (m > 300) {
+    const extra2 = m - 300;
+    pct += extra2 * 0.19;
+  }
+  return Math.min(parseFloat(pct.toFixed(2)), 100);
+}
+
+// Coeficiente reductor voluntaria por tramo de años cotizados (tabla 2024, art. 208 LGSS)
+function coefReductorVoluntaria(anyosCotizados, meses) {
+  let pctMes;
+  if (anyosCotizados >= 44.5)      pctMes = 0.0019;
+  else if (anyosCotizados >= 41.5) pctMes = 0.0020;
+  else if (anyosCotizados >= 38.5) pctMes = 0.0021;
+  else                              pctMes = 0.0025; // 35-38.4 años
+  return Math.min(meses * pctMes, 0.30);
+}
+
+// Coeficiente reductor involuntaria por tramo (tabla 2024, art. 207 LGSS)
+function coefReductorInvoluntaria(anyosCotizados, meses) {
+  let pctMes;
+  if (anyosCotizados >= 44.5)      pctMes = 0.0013;
+  else if (anyosCotizados >= 41.5) pctMes = 0.0014;
+  else if (anyosCotizados >= 38.5) pctMes = 0.0015;
+  else if (anyosCotizados >= 35)   pctMes = 0.0017;
+  else                              pctMes = 0.0019;
+  return Math.min(meses * pctMes, 0.225);
+}
+
+// Requisitos mínimos por modalidad (para modal informativo)
+function requisitosModalidad(modalidad) {
+  const r = {
+    ordinaria:              { min: 15, nombre: 'Jubilación ordinaria',               lista: ['Mínimo 15 años cotizados','Al menos 2 años en los últimos 15','Haber alcanzado la edad legal (66a 10m o 65a si ≥ 38a 3m cotizados)'] },
+    anticipada_voluntaria:  { min: 35, nombre: 'Anticipada voluntaria',              lista: ['Mínimo 35 años cotizados','Al menos 2 años en los últimos 15','Máximo 2 años antes de la edad ordinaria','La pensión debe superar la mínima (sin complemento a mínimos)'] },
+    anticipada_involuntaria:{ min: 33, nombre: 'Anticipada involuntaria',            lista: ['Mínimo 33 años cotizados','Al menos 2 años en los últimos 15','Máximo 4 años antes de la edad ordinaria','Cese involuntario acreditado (despido, ERE, fuerza mayor…)','Desempleo ≥ 6 meses tras el cese'] },
+    demorada:               { min: 15, nombre: 'Jubilación demorada',                lista: ['Mínimo 15 años cotizados','Jubilarse después de la edad ordinaria','+4% por cada año completo adicional (máx. +36%)'] },
+    activa:                 { min: 15, nombre: 'Jubilación activa',                  lista: ['Tener reconocida la pensión (haber alcanzado edad legal)','Compatible con trabajo por cuenta propia o ajena','Se cobra 50% mientras se trabaja; 100% al cesar'] },
+    parcial:                { min: 33, nombre: 'Jubilación parcial',                 lista: ['Mínimo 33 años cotizados','Edad: como mínimo edad ordinaria menos 2 años','Reducción jornada 25-75% acordada con empresa','Contrato de relevo obligatorio'] },
+  };
+  return r[modalidad] || r.ordinaria;
+}
+
+// ─── MODAL DE REQUISITOS ──────────────────────────────────────────────────
+function mostrarModalRequisitos(modalidad, cotizadosHoy, cotizadosAlJubilarse) {
+  const reqs = requisitosModalidad(modalidad);
+  const cumpleHoy = cotizadosHoy >= reqs.min;
+  const cumpleAlJub = cotizadosAlJubilarse >= reqs.min;
+  const faltanHoy = Math.max(0, reqs.min - cotizadosHoy).toFixed(1);
+  const faltanAlJub = Math.max(0, reqs.min - cotizadosAlJubilarse).toFixed(1);
+
+  let html = `
+    <div class="req-row"><span>Años cotizados hoy</span>
+      <span class="${cumpleHoy ? 'req-ok' : 'req-ko'}">${cotizadosHoy.toFixed(1)} años</span></div>
+    <div class="req-row"><span>Años cotizados al jubilarse (proyección)</span>
+      <span class="${cumpleAlJub ? 'req-ok' : 'req-ko'}">${cotizadosAlJubilarse.toFixed(1)} años</span></div>
+    <div class="req-row"><span>Mínimo requerido — <strong>${reqs.nombre}</strong></span>
+      <span style="font-weight:700">${reqs.min} años</span></div>`;
+
+  if (!cumpleAlJub) {
+    html += `<div class="req-highlight">⚠ Con la fecha de jubilación indicada no alcanzarás el mínimo de <strong>${reqs.min} años</strong> cotizados. Te faltarán <strong>${faltanAlJub} años</strong>. Considera retrasar la jubilación o cambiar de modalidad.</div>`;
+  } else if (!cumpleHoy) {
+    html += `<div class="req-highlight-ok">✓ Hoy no tienes los años suficientes pero <strong>los cumplirás antes de jubilarte</strong> si sigues cotizando. El cálculo usa los años proyectados a la fecha de jubilación.</div>`;
+  }
+
+  html += `<h3>Requisitos de la ${reqs.nombre}</h3><ul>`;
+  reqs.lista.forEach(r => { html += `<li>${r}</li>`; });
+  html += `</ul>`;
+
+  html += `<h3>¿Qué puedes pedir con ${cotizadosHoy.toFixed(1)} años cotizados?</h3>`;
+  const mods = [
+    { label: 'Jubilación ordinaria', min: 15 },
+    { label: 'Anticipada involuntaria', min: 33 },
+    { label: 'Anticipada voluntaria', min: 35 },
+    { label: 'Jubilación parcial', min: 33 },
+    { label: 'Jubilación activa', min: 15 },
+    { label: 'Jubilación demorada', min: 15 },
+  ];
+  mods.forEach(m => {
+    const ok = cotizadosHoy >= m.min;
+    const falta = Math.max(0, m.min - cotizadosHoy).toFixed(1);
+    html += `<div class="req-row"><span>${m.label} (min. ${m.min}a)</span>
+      <span class="${ok ? 'req-ok' : 'req-ko'}">${ok ? '✓ Posible' : '✗ Faltan ' + falta + ' años'}</span></div>`;
+  });
+
+  mostrarModal('Requisitos: ' + reqs.nombre, html);
+}
+
+// ─── VALIDACIÓN ────────────────────────────────────────────────────────────
+function validar() {
+  let ok = true;
+  const fnNac = document.getElementById('fechaNac');
+  const fjub = document.getElementById('fechaJub');
+  const nac = new Date(fnNac.value);
+  const jub = new Date(fjub.value);
+  const modalidad = document.getElementById('modalidad').value;
+  const anyosCot = parseFloat(document.getElementById('anyosCotizados').value) || 0;
+
+  const maxNac = new Date(HOY); maxNac.setFullYear(maxNac.getFullYear() - 18);
+  const minNac = new Date('1940-01-01');
+
+  if (!fnNac.value || nac < minNac || nac > maxNac) {
+    document.getElementById('field-fechaNac').classList.add('error');
+    document.getElementById('err-fechaNac').style.display = 'block';
+    document.getElementById('err-fechaNac').textContent =
+      'Debe ser entre 01/01/1940 y ' + fmt_fecha(maxNac) + ' (minimo 18 años)';
+    ok = false;
+  } else {
+    document.getElementById('field-fechaNac').classList.remove('error');
+    document.getElementById('err-fechaNac').style.display = 'none';
+  }
+
+  // fechaJub: si está vacía, calcularla automáticamente antes de validar
+  if (!fjub.value && fnNac.value) {
+    calcularFechaAuto();
+  }
+  const jubActual = fjub.value ? new Date(fjub.value) : null;
+  if (!jubActual || jubActual <= HOY) {
+    document.getElementById('field-fechaJub').classList.add('error');
+    document.getElementById('err-fechaJub').style.display = 'block';
+    document.getElementById('err-fechaJub').textContent = !jubActual
+      ? 'Introduce una fecha o pulsa ⚡ Auto' : 'Debe ser una fecha futura';
+    ok = false;
+  } else {
+    document.getElementById('field-fechaJub').classList.remove('error');
+    document.getElementById('err-fechaJub').style.display = 'none';
+  }
+
+  const acNum = parseFloat(document.getElementById('anyosCotizados').value);
+  if (isNaN(acNum) || acNum < 0) {
+    document.getElementById('field-anyosCotizados').classList.add('error');
+    ok = false;
+  } else {
+    document.getElementById('field-anyosCotizados').classList.remove('error');
+    // Mostrar modal informativo si no se cumplen requisitos de cotización
+    if (fnNac.value && fjub.value && jub > HOY) {
+      const reqs = requisitosModalidad(modalidad);
+      const diasFalta = (jub - HOY) / (1000*60*60*24);
+      const cotizadosAlJub = anyosCot + Math.max(0, diasFalta / 365.25);
+      if (anyosCot < reqs.min) {
+        mostrarModalRequisitos(modalidad, anyosCot, cotizadosAlJub);
+        // No bloqueamos: mostramos info y dejamos calcular (los warnings aparecen en resultados)
+      }
+    }
+  }
+
+  return ok;
+}
+
+// ─── CÁLCULO PRINCIPAL ─────────────────────────────────────────────────────
+function calcular() {
+  if (!validar()) return;
+
+  const fechaNac = new Date(document.getElementById('fechaNac').value);
+  const fechaJub = new Date(document.getElementById('fechaJub').value); // may have been auto-filled
+  const anyosCot = parseFloat(document.getElementById('anyosCotizados').value) || 0;
+  const salario = parseFloat(document.getElementById('salario').value) || 0;
+  const modalidad = document.getElementById('modalidad').value;
+  const lagunas = parseInt(document.getElementById('lagunas').value) || 0;
+  const brechaHijos = parseInt(document.getElementById('brecha').value) || 0;
+  const planPrivado = parseFloat(document.getElementById('planPensiones').value) || 0;
+  const planEmpresaVal = parseFloat(document.getElementById('planEmpresa').value) || 0;
+  const ipc = parseFloat(document.getElementById('ipc').value) || 2.5;
+
+  // 1. EDAD EXACTA en la fecha de jubilación
+  const edadDecimalJub = edadExacta(fechaNac, fechaJub);
+  const edadAnios = Math.floor(edadDecimalJub);
+  const edadMesesFraccion = Math.floor((edadDecimalJub - edadAnios) * 12);
+
+  // 2. AÑOS COTIZADOS PROYECTADOS a la fecha de jubilación
+  const diasHastaJub = (fechaJub - HOY) / (1000 * 60 * 60 * 24);
+  const anyosFaltaHastaJub = Math.max(0, diasHastaJub / 365.25);
+  const anyosCotFinal = anyosCot + anyosFaltaHastaJub;
+  const mesesCotFinal = anyosCotFinal * 12; // para tabla mensual
+
+  // 3. EDAD LEGAL ORDINARIA en la fecha de jubilación (LGSS art. 205)
+  // Se calcula con los años cotizados PROYECTADOS al jubilarse
+  const edadLegalObj = calcEdadLegal(anyosCotFinal);
+  const edadLegalAnios = edadLegalObj.anios;
+  const edadLegalMeses = edadLegalObj.meses;
+  const edadLegalDecimal = edadLegalObj.decimal;
+
+  // 4. FECHA EXACTA en que cumple la edad legal
+  const fechaEdadLegal = fechaCumpleEdadLegal(fechaNac, edadLegalAnios, edadLegalMeses);
+
+  // 5. DIFERENCIA real en meses (fecha jubilación vs fecha edad legal)
+  // Positivo => se jubila ANTES de la edad legal (anticipada)
+  // Negativo => se jubila DESPUÉS de la edad legal (demorada)
+  const diffMs = fechaEdadLegal - fechaJub;
+  const diffDias = diffMs / (1000 * 60 * 60 * 24);
+  // Convertimos a meses completos (redondeados al entero más cercano)
+  const diffMesesTotal = diffDias / 30.4375;
+  const mesesAnticipacion = Math.max(0, Math.round(diffMesesTotal));
+  const mesesDemora = Math.max(0, Math.round(-diffMesesTotal));
+  const anyosDemoraCompletos = Math.floor(mesesDemora / 12); // solo años completos para demorada
+
+  // 6. BASE DE COTIZACIÓN
+  const TOPE_MAX = 4720.50;
+  const TOPE_MIN_RG = 1323.00;
+  const TOPE_MIN_RETA = 653.59;
+  let baseCot;
+  if (regime === 'autonomo') {
+    baseCot = Math.min(Math.max(parseFloat(document.getElementById('baseAutonomo').value) || 1000, TOPE_MIN_RETA), TOPE_MAX);
+  } else {
+    baseCot = Math.min(Math.max(salario > 0 ? salario : TOPE_MIN_RG, TOPE_MIN_RG), TOPE_MAX);
+  }
+
+  // 7. BASE REGULADORA (estimación con base actual como proxy del promedio histórico)
+  // Sistema 25 años (300 meses): media de bases actualizadas con IPC salvo últimas 24
+  const br25 = baseCot;
+  // Sistema 27 años (348 meses menos 24 peores = 324 meses efectivos):
+  // Se eliminan los 2 años peores, que suelen ser los de menor cotización.
+  // Estimación conservadora: br27 ≈ br25 × 0.98 (los 2 peores suponen aprox. un 2% de rebaja)
+  const br27 = baseCot * 0.98;
+  const sistemaBR = document.getElementById('sistemaBR').value;
+  let brFinal, sistemaUsado;
+  if (sistemaBR === '25') { brFinal = br25; sistemaUsado = '25 años'; }
+  else if (sistemaBR === '29') { brFinal = br27; sistemaUsado = '27 años netos (29-2 peores)'; }
+  else {
+    // Automático: la SS aplica el más favorable (obligatorio desde 2026 hasta 2044)
+    if (br25 >= br27) { brFinal = br25; sistemaUsado = '25 años (más favorable)'; }
+    else { brFinal = br27; sistemaUsado = '27 años netos (más favorable)'; }
+  }
+
+  // 8. PORCENTAJE SOBRE BR — tabla mensual oficial LGSS art. 210 (2024)
+  const pctBase = calcPctBR(mesesCotFinal);
+
+  // 9. VALIDACIÓN DE REQUISITOS Y COEFICIENTES POR MODALIDAD
+  let coefReductor = 0; // positivo = penalización; negativo = incremento
+  let tipoAcceso = '';
+  let requisitosOk = true;
+  let warnings = [];
+
+  if (modalidad === 'anticipada_voluntaria') { // BLOQUE PROPIO
+    if (anyosCotFinal < 35) {
+      requisitosOk = false;
+      warnings.push('Anticipada voluntaria requiere minimo 35 anios cotizados. Al jubilarte tendras ' +
+        anyosCotFinal.toFixed(1) + ' anios (faltan ' + (35-anyosCotFinal).toFixed(1) + ' anios).');
+    }
+    if (mesesAnticipacion === 0) {
+      warnings.push('Ya has alcanzado o superado la edad legal. Esta modalidad no aplica: usa Ordinaria o Demorada.');
+      requisitosOk = false;
+    } else if (mesesAnticipacion > 24) {
+      warnings.push('La anticipada voluntaria tiene maximo 2 anios (24 meses) de anticipacion. ' +
+        'Tu fecha supera ese limite en ' + (mesesAnticipacion-24) + ' meses. ' +
+        'El INSS solo acepta la solicitud dentro de los 24 meses previos a la edad ordinaria.');
+    }
+    let mesesEfectivosV = Math.min(mesesAnticipacion, 24);
+    coefReductor = coefReductorVoluntaria(anyosCotFinal, mesesEfectivosV);
+    tipoAcceso = 'Anticipada voluntaria · ' + mesesEfectivosV + ' meses antes de la edad legal';
+
+  } else if (modalidad === 'anticipada_involuntaria') { // BLOQUE PROPIO
+    if (anyosCotFinal < 33) {
+      requisitosOk = false;
+      warnings.push('Anticipada involuntaria requiere minimo 33 anios cotizados. Al jubilarte tendras ' +
+        anyosCotFinal.toFixed(1) + ' anios (faltan ' + (33-anyosCotFinal).toFixed(1) + ' anios).');
+    }
+    if (mesesAnticipacion === 0) {
+      warnings.push('Ya has alcanzado o superado la edad legal. Esta modalidad no aplica.');
+      requisitosOk = false;
+    } else if (mesesAnticipacion > 48) {
+      warnings.push('La anticipada involuntaria tiene maximo 4 anios (48 meses). ' +
+        'Tu fecha supera ese limite en ' + (mesesAnticipacion-48) + ' meses.');
+    }
+    let mesesEfectivosI = Math.min(mesesAnticipacion, 48);
+    coefReductor = coefReductorInvoluntaria(anyosCotFinal, mesesEfectivosI);
+    tipoAcceso = 'Anticipada involuntaria · ' + mesesEfectivosI + ' meses antes de la edad legal';
+
+  } else if (modalidad === 'demorada') { // BLOQUE PROPIO
+    // art. 210.2 LGSS: +4% por anio COMPLETO de demora (max +36%)
+    if (mesesAnticipacion > 0) {
+      warnings.push('Con la fecha indicada aun no has alcanzado la edad ordinaria (' +
+        edadLegalAnios + 'a ' + edadLegalMeses + 'm). La jubilacion demorada requiere ' +
+        'jubilarse DESPUES de esa edad. Faltan ' + mesesAnticipacion + ' meses. ' +
+        'Cambia la fecha o selecciona Ordinaria.');
+    } else if (anyosDemoraCompletos === 0) {
+      // Menos de 1 anio completo de demora => sin incremento
+      let fechaMas1 = new Date(fechaEdadLegal);
+      fechaMas1.setFullYear(fechaMas1.getFullYear() + 1);
+      let fechaMas1Str = fechaMas1.toLocaleDateString('es-ES', {day:'numeric', month:'long', year:'numeric'});
+      warnings.push('Te jubilas ' + mesesDemora + ' mes' + (mesesDemora !== 1 ? 'es' : '') +
+        ' despues de la edad legal, pero el +4% (art. 210.2 LGSS) solo aplica por ANOS COMPLETOS. ' +
+        'Con menos de 12 meses el incremento es 0%. ' +
+        'Para el primer +4% necesitas jubilarte desde el ' + fechaMas1Str + '.');
+    }
+    if (anyosCotFinal < 15) {
+      requisitosOk = false;
+      warnings.push('Se necesitan al menos 15 anios cotizados para la jubilacion.');
+    }
+    let pctIncrementoDem = Math.min(anyosDemoraCompletos * 0.04, 0.36);
+    coefReductor = -pctIncrementoDem; // negativo = incremento
+    if (anyosDemoraCompletos === 0) {
+      tipoAcceso = 'Ordinaria con retraso < 1 anio (sin incremento demorada)';
+    } else {
+      let sufD = anyosDemoraCompletos > 1 ? 's' : '';
+      tipoAcceso = 'Demorada · ' + anyosDemoraCompletos + ' anio' + sufD +
+        ' completo' + sufD + ' (+' + (pctIncrementoDem*100).toFixed(0) + '%)';
+    }
+
+  } else if (modalidad === 'activa') { // BLOQUE PROPIO
+    if (anyosCotFinal < 15) {
+      requisitosOk = false;
+      warnings.push('Se necesitan al menos 15 anios cotizados.');
+    }
+    if (mesesAnticipacion > 0) {
+      warnings.push('La jubilacion activa requiere haber alcanzado la edad ordinaria (' +
+        edadLegalAnios + 'a ' + edadLegalMeses + 'm). Con la fecha indicada faltan ' +
+        mesesAnticipacion + ' meses para llegar a esa edad.');
+    }
+    tipoAcceso = 'Jubilacion activa · 50% pension + trabajo compatible';
+
+  } else if (modalidad === 'parcial') { // BLOQUE PROPIO
+    if (anyosCotFinal < 33) {
+      requisitosOk = false;
+      warnings.push('Jubilacion parcial requiere minimo 33 anios cotizados. Al jubilarte tendras ' +
+        anyosCotFinal.toFixed(1) + ' anios (faltan ' + (33-anyosCotFinal).toFixed(1) + ' anios).');
+    }
+    let edadMinParcialP = edadLegalDecimal - 2;
+    if (edadDecimalJub < edadMinParcialP) {
+      warnings.push('Para jubilacion parcial se necesita al menos ' + (edadLegalAnios-2) +
+        ' anios y ' + edadLegalMeses + ' meses. Con tu fecha tendras ' + edadAnios +
+        ' anios y ' + edadMesesFraccion + ' meses.');
+    }
+    tipoAcceso = 'Jubilacion parcial · reduccion jornada 25-75% + contrato de relevo';
+
+  } else { // Ordinaria (art. 205 LGSS)
+    if (anyosCotFinal < 15) {
+      requisitosOk = false;
+      warnings.push('Se necesitan al menos 15 anios cotizados (180 meses). Al jubilarte tendras ' +
+        anyosCotFinal.toFixed(1) + ' anios (faltan ' + (15-anyosCotFinal).toFixed(1) + ' anios).');
+    }
+    if (mesesAnticipacion > 0) {
+      warnings.push('Con la fecha indicada tendras ' + edadAnios + ' anios y ' + edadMesesFraccion +
+        ' meses, pero tu edad ordinaria es ' + edadLegalAnios + ' anios y ' +
+        edadLegalMeses + ' meses. Faltan ' + mesesAnticipacion +
+        ' meses. Si quieres jubilarte antes, selecciona Anticipada voluntaria o Anticipada involuntaria.');
+    }
+    tipoAcceso = 'Ordinaria · ' + edadAnios + ' anios y ' + edadMesesFraccion + ' meses';
+  }
+
+  // 10. COMPLEMENTO BRECHA DE GÉNERO (art. 60 LGSS)
+  const pctBrecha = [0, 3.5, 5, 7][Math.min(brechaHijos, 3)];
+
+  // 11. PENSIÓN BRUTA MENSUAL
+  // Fórmula: BR × (%BR/100) × (1 - coefReductor) × (1 + brecha/100)
+  // coefReductor negativo (demorada) => (1 - negativo) = (1 + positivo) ✓
+  let pension = brFinal * (pctBase / 100) * (1 - coefReductor) * (1 + pctBrecha / 100);
+  const pensionActiva = modalidad === 'activa' ? pension * 0.50 : null;
+
+  // 12. TOPES LEGALES 2026
+  const PENSION_MAX = 3175.04;   // actualizada con IPC 2025
+  const PENSION_MIN_SC = 906.10; // 65+ sin cónyuge a cargo
+  const PENSION_MIN_CC = 1082.05;
+  const aplicoMax = pension > PENSION_MAX;
+  const aplicoMin = pension < PENSION_MIN_SC && edadAnios >= 65;
+  pension = Math.min(pension, PENSION_MAX);
+
+  // 13. IRPF — rendimientos del trabajo (art. 17 y 63 LIRPF 2026)
+  // Escala general 2026: estatal + autonómica (usamos tipo conjunto aproximado)
+  function calcIRPF(mensual) {
+    const anual = mensual * 14;
+    // Reducción rendimientos del trabajo (art. 20 LIRPF): 
+    // <= 14.450€: 5.565€; entre 14.450 y 18.700€: reducción decreciente; > 18.700€: 0
+    let reduccion = 0;
+    if (anual <= 14450) reduccion = 5565;
+    else if (anual <= 18700) reduccion = Math.max(0, 5565 - 1.5 * (anual - 14450));
+    const base = Math.max(0, anual - reduccion);
+    // Escala conjunta estatal + autonómica media (tipos totales aproximados 2026)
+    let cuota = 0;
+    if (base <= 12450)       cuota = base * 0.19;
+    else if (base <= 20200)  cuota = 12450*0.19 + (base-12450)*0.24;
+    else if (base <= 35200)  cuota = 12450*0.19 + 7750*0.24 + (base-20200)*0.30;
+    else if (base <= 60000)  cuota = 12450*0.19 + 7750*0.24 + 15000*0.30 + (base-35200)*0.37;
+    else if (base <= 300000) cuota = 12450*0.19 + 7750*0.24 + 15000*0.30 + 24800*0.37 + (base-60000)*0.45;
+    else                     cuota = 12450*0.19 + 7750*0.24 + 15000*0.30 + 24800*0.37 + 240000*0.45 + (base-300000)*0.47;
+    return cuota / 14;
+  }
+  const irpfMensual = calcIRPF(pension);
+  const pensionNeta = pension - irpfMensual;
+  const tipoIRPF = pension > 0 ? (irpfMensual / pension * 100) : 0;
+
+  // 14. TASA DE REEMPLAZO
+  const salarioCotiz = regime === 'autonomo'
+    ? (parseFloat(document.getElementById('rendimientoNeto').value) || 25000) / 12
+    : salario;
+  const planTotal = planPrivado + planEmpresaVal;
+  const tasaReemplazo = salarioCotiz > 0 ? Math.round((pension / salarioCotiz) * 100) : 0;
+  const tasaTotal = salarioCotiz > 0 ? Math.round(((pension + planTotal) / salarioCotiz) * 100) : 0;
+
+  // 15. PROYECCIÓN IPC
+  const proyeccion = [0,5,10,15,20].map(a => ({
+    anio: fechaJub.getFullYear() + a,
+    valor: Math.round(pension * Math.pow(1 + ipc/100, a))
+  }));
+
+  // 16. MEI 2026 (0.80% BC total: 0.58% empresa + 0.22% trabajador)
+  const meiTotal = baseCot * 0.008;
+  const meiEmpresa = baseCot * 0.0058;
+  const meiTrabajador = baseCot * 0.0022;
+
+  resultData = {
+    regime, modalidad,
+    fechaNac, fechaJub,
+    edadAnios, edadMesesFraccion, edadDecimalJub,
+    edadLegalAnios, edadLegalMeses, edadLegalDecimal, fechaEdadLegal,
+    anyosCot, anyosCotFinal, mesesCotFinal, lagunas, anyosFaltaHastaJub,
+    mesesAnticipacion, mesesDemora, anyosDemoraCompletos,
+    baseCot, br25, br27, brFinal, sistemaUsado,
+    pctBase, coefReductor, pctBrecha, brechaHijos,
+    pension, pensionActiva, pensionNeta, irpfMensual, tipoIRPF,
+    PENSION_MAX, PENSION_MIN_SC, PENSION_MIN_CC, aplicoMax, aplicoMin,
+    salarioCotiz, planTotal, planPrivado, planEmpresaVal,
+    tasaReemplazo, tasaTotal, proyeccion, ipc,
+    meiTotal, meiEmpresa, meiTrabajador,
+    tipoAcceso, requisitosOk, warnings,
+    salario,
+  };
+
+  renderResultados();
+  document.getElementById('page-input').classList.add('hidden');
+  document.getElementById('page-result').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+// ─── RENDER RESULTADOS ─────────────────────────────────────────────────────
+function renderResultados() {
+  const d = resultData;
+
+  // Cards de pensión
+  document.getElementById('res-pension-bruta').textContent = fmt(d.pension) + ' €';
+  document.getElementById('res-pension-neta').textContent = fmt(d.pensionNeta) + ' €';
+
+  // Métricas
+  // Edad al jubilarse (la que el usuario elige)
+  document.getElementById('met-edad').textContent = d.edadAnios + 'a ' + d.edadMesesFraccion + 'm';
+  // Subtítulo: edad legal ordinaria (distinta de la anterior)
+  document.getElementById('met-edad-sub').textContent =
+    'Edad legal: ' + d.edadLegalAnios + 'a' + (d.edadLegalMeses > 0 ? ' ' + d.edadLegalMeses + 'm' : '');
+  document.getElementById('met-cotizados').textContent = d.anyosCotFinal.toFixed(1);
+  document.getElementById('met-br').textContent = fmt(d.brFinal);
+  document.getElementById('met-br-sistema').textContent = d.sistemaUsado;
+  const pctFinal = d.pctBase * (1 - d.coefReductor) * (1 + d.pctBrecha/100);
+  document.getElementById('met-pct').textContent = pctFinal.toFixed(1) + '%';
+
+  // Caja informativa: explica la diferencia entre edad elegida y edad legal
+  const infoEdadBox = document.getElementById('info-edad-box');
+  if (infoEdadBox) {
+    const edadElegidaStr = d.edadAnios + ' años y ' + d.edadMesesFraccion + ' meses';
+    const edadLegalStr = d.edadLegalAnios + ' años' + (d.edadLegalMeses > 0 ? ' y ' + d.edadLegalMeses + ' meses' : '');
+    let infoTxt = '';
+    if (d.mesesAnticipacion > 0) {
+      infoTxt = '📌 Te jubilas con <strong>' + edadElegidaStr + '</strong>, que es <strong>' + d.mesesAnticipacion +
+        ' meses antes</strong> de tu edad legal ordinaria (<strong>' + edadLegalStr + '</strong>). ' +
+        'Por eso se aplica el coeficiente reductor de jubilación anticipada.';
+      infoEdadBox.style.borderColor = '#d97706';
+      infoEdadBox.style.background = '#fffbeb';
+    } else if (d.mesesDemora > 0) {
+      if (d.anyosDemoraCompletos > 0) {
+        // Hay incremento real
+        infoTxt = '📌 Te jubilas con <strong>' + edadElegidaStr + '</strong>, que es <strong>' +
+          d.anyosDemoraCompletos + ' año' + (d.anyosDemoraCompletos > 1 ? 's' : '') +
+          ' completo' + (d.anyosDemoraCompletos > 1 ? 's' : '') +
+          ' después</strong> de tu edad legal ordinaria (<strong>' + edadLegalStr + '</strong>). ' +
+          'Se aplica el incremento por jubilación demorada: <strong>+' +
+          (Math.abs(d.coefReductor)*100).toFixed(0) + '%</strong> sobre la pensión base.';
+        infoEdadBox.style.borderColor = '#16a34a';
+        infoEdadBox.style.background = '#f0fdf4';
+      } else {
+        // Retraso < 1 año: sin incremento, equivale a ordinaria
+        infoTxt = '⚠️ Te jubilas con <strong>' + edadElegidaStr + '</strong>, que es <strong>' +
+          d.mesesDemora + ' mes' + (d.mesesDemora !== 1 ? 'es' : '') +
+          ' después</strong> de tu edad legal ordinaria (<strong>' + edadLegalStr + '</strong>). ' +
+          'El incremento por jubilación demorada (art. 210.2 LGSS) <strong>solo se aplica por años completos</strong>. ' +
+          'Con ' + d.mesesDemora + ' mes' + (d.mesesDemora !== 1 ? 'es' : '') +
+          ' de retraso el incremento es <strong>+0%</strong>. ' +
+          'Esta situación equivale a jubilación ordinaria.';
+        infoEdadBox.style.borderColor = '#d97706';
+        infoEdadBox.style.background = '#fffbeb';
+      }
+    } else {
+      infoTxt = '📌 Te jubilas exactamente a tu edad legal ordinaria: <strong>' + edadLegalStr + '</strong>. ' +
+        'Sin coeficientes reductores ni incrementos.';
+      infoEdadBox.style.borderColor = '#2563eb';
+      infoEdadBox.style.background = '#eef4ff';
+    }
+    infoEdadBox.innerHTML = infoTxt;
+    infoEdadBox.style.display = 'block';
+  }
+
+  // Alertas modalidad
+  const alertBox = document.getElementById('alert-modalidad-box');
+  let alertHTML = '';
+  if (d.warnings && d.warnings.length > 0) {
+    d.warnings.forEach(w => { alertHTML += `<div class="alert alert-danger"><strong>⚠ Atención:</strong> ${w}</div>`; });
+  }
+  if (d.modalidad === 'anticipada_voluntaria' && d.requisitosOk) {
+    alertHTML += `<div class="alert alert-warning"><strong>Jubilación anticipada voluntaria:</strong> Coeficiente reductor permanente del ${(d.coefReductor*100).toFixed(2)}% (${d.mesesAnticipacion} meses × tabla mensual 2024). Esta penalización es <strong>permanente e irreversible</strong>.</div>`;
+  }
+  if (d.modalidad === 'anticipada_involuntaria') {
+    alertHTML += `<div class="alert alert-info"><strong>Anticipada involuntaria:</strong> Coeficiente reductor del ${(d.coefReductor*100).toFixed(2)}%. Requiere acreditar cese no voluntario ante el INSS (despido, ERE, ERTE extinguido) y desempleo ≥ 6 meses.</div>`;
+  }
+  if (d.modalidad === 'demorada') {
+    alertHTML += `<div class="alert alert-success"><strong>Jubilación demorada:</strong> Incremento del ${(Math.abs(d.coefReductor)*100).toFixed(0)}% sobre la pensión. Alternativa: pago único. Consulta con el INSS qué opción es más favorable según tu esperanza de vida.</div>`;
+  }
+  if (d.modalidad === 'activa') {
+    alertHTML += `<div class="alert alert-info"><strong>Jubilación activa:</strong> Recibirás el 50% de la pensión mientras trabajas. Al cesar definitivamente, el INSS te reconocerá el 100%. Compatible con trabajo a tiempo completo desde 2024 (Ley 21/2021).</div>`;
+  }
+  if (d.modalidad === 'parcial') {
+    alertHTML += `<div class="alert alert-info"><strong>Jubilación parcial:</strong> Reducción de jornada del 25% al 75% acordada con la empresa. Obligatorio contrato de relevo. La pensión es proporcional a la reducción. Mín. 33 años cotizados.</div>`;
+  }
+  if (d.aplicoMax) alertHTML += `<div class="alert alert-warning"><strong>Tope máximo aplicado:</strong> Tu pensión calculada supera la pensión máxima legal 2026 (${fmt(d.PENSION_MAX)} €/mes). Se ha limitado al tope.</div>`;
+  if (d.aplicoMin) alertHTML += `<div class="alert alert-info"><strong>Complemento a mínimos:</strong> Tu pensión calculada es inferior a la mínima legal. Con 65+ años sin cónyuge a cargo: ${fmt(d.PENSION_MIN_SC)} €/mes garantizados (siempre que se cumplan los requisitos de renta).</div>`;
+  alertBox.innerHTML = alertHTML;
+
+  // Tasa de reemplazo
+  document.getElementById('tr-pct').textContent = d.tasaReemplazo + '%';
+  document.getElementById('tr-bar').style.width = Math.min(d.tasaReemplazo, 100) + '%';
+  document.getElementById('tr-pct2').textContent = d.tasaTotal + '%';
+  document.getElementById('tr-bar2').style.width = Math.min(d.tasaTotal, 100) + '%';
+
+  // Proyección IPC
+  const proyHTML = d.proyeccion.map(p => `
+    <div style="background:#f8f8f6;border-radius:10px;padding:12px 8px;text-align:center">
+      <div style="font-size:11px;color:#999;font-weight:600">${p.anio}</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;color:#1a1a1a">${fmt(p.valor)}€</div>
+    </div>`).join('');
+  document.getElementById('proyeccion-ipc').innerHTML = proyHTML;
+  document.getElementById('proyeccion-nota').textContent = `Con IPC estimado del ${d.ipc}% anual acumulado`;
+
+  // Resumen fiscal
+  document.getElementById('fiscal-resumen').innerHTML = `
+    <div class="detail-row"><span class="detail-label">Pensión bruta mensual</span><span class="detail-value">${fmt(d.pension)} €</span></div>
+    <div class="detail-row"><span class="detail-label">Pensión bruta anual (14 pagas)</span><span class="detail-value">${fmt(d.pension*14)} €</span></div>
+    <div class="detail-row"><span class="detail-label">Retención IRPF estimada (mensual)</span><span class="detail-value" style="color:#dc2626">-${fmt(d.irpfMensual)} €</span></div>
+    <div class="detail-row"><span class="detail-label">Tipo efectivo IRPF estimado</span><span class="detail-value">${d.tipoIRPF.toFixed(1)}%</span></div>
+    <div class="detail-row"><span class="detail-label">Pensión neta mensual</span><span class="detail-value" style="color:#16a34a;font-size:16px">${fmt(d.pensionNeta)} €</span></div>`;
+
+  renderDesglose();
+  renderTimeline();
+  renderMejoras();
+  renderNovedades();
+}
+
+function renderDesglose() {
+  const d = resultData;
+  document.getElementById('desglose-content').innerHTML = `
+    <div class="detail-row"><span class="detail-label">Régimen</span><span class="detail-value">${d.regime === 'autonomo' ? 'RETA — Autónomos' : 'Régimen General'}</span></div>
+    <div class="detail-row"><span class="detail-label">Base de cotización mensual</span><span class="detail-value">${fmt(d.baseCot)} €</span></div>
+    <div class="detail-row"><span class="detail-label">Sistema BR aplicado</span><span class="detail-value">${d.sistemaUsado} <span class="badge badge-info">automático</span></span></div>
+    <div class="detail-row"><span class="detail-label">Base reguladora mensual</span><span class="detail-value">${fmt(d.brFinal)} €</span></div>
+    <div class="detail-row"><span class="detail-label">Años cotizados al jubilarse</span><span class="detail-value">${d.anyosCotFinal.toFixed(1)} años</span></div>
+    <div class="detail-row"><span class="detail-label">% base por cotización</span><span class="detail-value">${d.pctBase.toFixed(2)}%</span></div>
+    ${d.coefReductor > 0 ? `<div class="detail-row"><span class="detail-label">Coeficiente reductor anticipada</span><span class="detail-value" style="color:#dc2626">-${(d.coefReductor*100).toFixed(2)}% (permanente)</span></div>` : ''}
+    ${d.coefReductor < 0 ? `<div class="detail-row"><span class="detail-label">Incremento jubilación demorada</span><span class="detail-value" style="color:#16a34a">+${(Math.abs(d.coefReductor)*100).toFixed(0)}%</span></div>` : ''}
+    ${d.pctBrecha > 0 ? `<div class="detail-row"><span class="detail-label">Complemento brecha de género</span><span class="detail-value" style="color:#16a34a">+${d.pctBrecha}% (${d.brechaHijos} hijo/s)</span></div>` : ''}
+    <div class="detail-row"><span class="detail-label">% total aplicado sobre BR</span><span class="detail-value">${(d.pctBase*(1-d.coefReductor)*(1+d.pctBrecha/100)).toFixed(2)}%</span></div>
+    <div class="detail-row"><span class="detail-label">Pensión bruta mensual calculada</span><span class="detail-value">${fmt(d.pension)} €</span></div>
+    ${d.aplicoMax ? `<div class="detail-row"><span class="detail-label">Tope máximo 2026 aplicado</span><span class="detail-value" style="color:#d97706">${fmt(d.PENSION_MAX)} €</span></div>` : ''}
+    <div class="detail-row"><span class="detail-label">Pensión anual bruta (14 pagas)</span><span class="detail-value">${fmt(d.pension*14)} €</span></div>`;
+
+  if (d.regime === 'autonomo') {
+    document.getElementById('sec-reta-extra').style.display = 'block';
+    document.getElementById('reta-content').innerHTML = `
+      <div class="detail-row"><span class="detail-label">Base cotización RETA elegida</span><span class="detail-value">${fmt(d.baseCot)} €/mes</span></div>
+      <div class="detail-row"><span class="detail-label">Cotización contingencias comunes</span><span class="detail-value">${fmt(d.baseCot*0.283)} €/mes (28.30%)</span></div>
+      <div class="detail-row"><span class="detail-label">Cese de actividad</span><span class="detail-value">${fmt(d.baseCot*0.009)} €/mes (0.90%)</span></div>
+      <div class="detail-row"><span class="detail-label">MEI incluido</span><span class="detail-value">${fmt(d.meiTotal)} €/mes (0.80%)</span></div>
+      <div class="detail-row"><span class="detail-label">Cuota total aprox.</span><span class="detail-value">${fmt(d.baseCot*0.317)} €/mes (~31.7%)</span></div>
+      <div class="alert alert-warning" style="margin-top:12px">
+        <strong>Regularización RETA:</strong> En enero del año siguiente, la SS compara tu base cotizada con los rendimientos netos declarados a Hacienda. Si hay diferencia, te cobrarán o devolverán la cuota correspondiente.
+      </div>`;
+  }
+
+  document.getElementById('computo-comparativa').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="padding:16px;background:#eef4ff;border-radius:12px;text-align:center">
+        <div style="font-size:12px;color:#1e40af;font-weight:600;margin-bottom:6px">Sistema 25 años</div>
+        <div style="font-size:22px;font-weight:700;color:#1e40af">${fmt(d.br25*(d.pctBase/100)*(1-d.coefReductor)*(1+d.pctBrecha/100))} €/mes</div>
+        <div style="font-size:12px;color:#666;margin-top:4px">BR: ${fmt(d.br25)} €/mes</div>
+      </div>
+      <div style="padding:16px;background:#f0fdf4;border-radius:12px;text-align:center">
+        <div style="font-size:12px;color:#166534;font-weight:600;margin-bottom:6px">Sistema 27 años (29-2)</div>
+        <div style="font-size:22px;font-weight:700;color:#166534">${fmt(d.br27*(d.pctBase/100)*(1-d.coefReductor)*(1+d.pctBrecha/100))} €/mes</div>
+        <div style="font-size:12px;color:#666;margin-top:4px">BR: ${fmt(d.br27)} €/mes</div>
+      </div>
+    </div>`;
+
+  document.getElementById('mei-content').innerHTML = `
+    <div class="detail-row"><span class="detail-label">MEI total (0.80% BC)</span><span class="detail-value">${d.meiTotal.toFixed(2)} €/mes</span></div>
+    <div class="detail-row"><span class="detail-label">Empresa (0.58%)</span><span class="detail-value">${d.meiEmpresa.toFixed(2)} €/mes</span></div>
+    <div class="detail-row"><span class="detail-label">Trabajador (0.22%)</span><span class="detail-value">${d.meiTrabajador.toFixed(2)} €/mes</span></div>
+    <div style="font-size:12px;color:#999;margin-top:8px">El MEI no genera derechos individuales. Es un fondo colectivo de solidaridad intergeneracional. Subirá al 1.2% en 2029.</div>`;
+}
+
+function renderTimeline() {
+  const d = resultData;
+  const jub = new Date(d.fechaJub);
+
+  function addMonths(date, m) {
+    const r = new Date(date); r.setMonth(r.getMonth() + m); return r;
+  }
+  function fmtFecha(date) {
+    return date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+  }
+
+  const items = [
+    { fecha: HOY, color: 't-dot-green', title: 'Ahora — Obtén tu informe de vida laboral',
+      desc: 'Accede a importa.gob.es o la app "Tu Seguridad Social". Comprueba que todos tus periodos cotizados están correctamente registrados. Si detectas lagunas o errores, solicita rectificación aportando nóminas, TC2 o contratos.' },
+    { fecha: addMonths(HOY, 1), color: 't-dot-blue', title: 'En 1 mes — Informe de bases de cotización',
+      desc: 'Descarga en la Sede Electrónica el informe de bases de cotización de los últimos 25-29 años. Detecta posibles errores o cotizaciones no registradas. Guarda el documento.' },
+    { fecha: addMonths(HOY, 2), color: 't-dot-blue', title: 'En 2 meses — Consulta en el INSS',
+      desc: 'Solicita cita previa en tu oficina del INSS o vía portal web. Pide una simulación oficial de pensión. También disponible en la app "Tu Seguridad Social". Lleva tu DNI y el informe de vida laboral.' },
+    { fecha: addMonths(jub, -12), color: 't-dot-amber', title: `12 meses antes (${fmtFecha(addMonths(jub,-12))}) — Comunica a la empresa`,
+      desc: 'Entrega carta de preaviso formal a tu empresa. Solicita el certificado de empresa con bases de cotización de los últimos 25 años, y confirma vacaciones pendientes y haberes a liquidar.' },
+    { fecha: addMonths(jub, -6), color: 't-dot-amber', title: `6 meses antes (${fmtFecha(addMonths(jub,-6))}) — Reúne documentación`,
+      desc: 'DNI en vigor, informe de vida laboral actualizado, certificado de empresa, últimas 6 nóminas (o recibos de autónomo), libro de familia si procede para brecha de género, y resoluciones previas del INSS.' },
+    { fecha: addMonths(jub, -3), color: 't-dot-red', title: `3 meses antes (${fmtFecha(addMonths(jub,-3))}) — Presenta solicitud oficial`,
+      desc: 'Presenta el formulario TA.177 (solicitud de jubilación) en tu INSS, por correo o en la Sede Electrónica. Máximo de antelación: 3 meses. El INSS resolverá en ~90 días hábiles y el pago será retroactivo a la fecha de solicitud.' },
+    { fecha: addMonths(jub, -1), color: 't-dot-amber', title: `1 mes antes (${fmtFecha(addMonths(jub,-1))}) — Coordina IRPF y finiquito`,
+      desc: 'Verifica con tu asesor fiscal las retenciones de IRPF sobre tu futura pensión. Coordina con la empresa el finiquito, pagas extras proporcionales y cualquier beneficio pendiente. Valora presentar el Modelo 146 a la AEAT.' },
+    { fecha: jub, color: 't-dot-green', title: `${fmtFecha(jub)} — Fecha de jubilación`,
+      desc: `Inicio de la pensión de jubilación. Pensión estimada: ${fmt(d.pension)} €/mes brutos · ${fmt(d.pensionNeta)} €/mes netos. El INSS emitirá resolución en ~90 días hábiles. El cobro es retroactivo desde la fecha de solicitud.` },
+    { fecha: addMonths(jub, 3), color: 't-dot-blue', title: 'Primeros meses — Confirma retenciones IRPF',
+      desc: 'En enero del año siguiente la AEAT comunicará la retención de IRPF definitiva. Considera si te conviene presentar el Modelo 146 para ajustar retenciones. Revisa si es obligatorio o conveniente presentar la declaración de la Renta.' },
+  ];
+
+  document.getElementById('timeline-content').innerHTML = items.map(it => `
+    <div class="t-item">
+      <div class="t-dot ${it.color}"></div>
+      <div class="t-date">${fmtFecha(it.fecha)}</div>
+      <div class="t-title">${it.title}</div>
+      <div class="t-desc">${it.desc}</div>
+    </div>`).join('');
+}
+
+function renderMejoras() {
+  const d = resultData;
+  const mejoras = [];
+
+  // 1. Retrasar 1 mes
+  if (d.modalidad === 'anticipada_voluntaria' || d.modalidad === 'ordinaria') {
+    const pensionExtra = d.brFinal * (d.pctBase / 100) * (1 - Math.max(0, d.coefReductor - 0.002)) * (1 + d.pctBrecha / 100);
+    const gananciaMes = Math.max(0, pensionExtra - d.pension);
+    mejoras.push({ icon: '⏳', title: 'Trabaja 1 mes más y reduce el coeficiente reductor',
+      desc: `Cada mes adicional reduce o elimina la penalización por anticipación. Con tu perfil, un mes más de cotización se traduce en aproximadamente ${fmt(gananciaMes)} €/mes adicionales permanentes.`,
+      gain: `+${fmt(gananciaMes)} €/mes · +${fmt(gananciaMes*14)} €/año` });
+  }
+
+  // 2. Aumentar base cotización (autónomos)
+  if (d.regime === 'autonomo') {
+    const baseAlta = Math.min(d.baseCot * 1.20, 4720.50);
+    const brAlta = baseAlta * 0.97;
+    const pensionAlta = Math.min(brAlta * (d.pctBase / 100) * (1 - d.coefReductor), d.PENSION_MAX);
+    mejoras.push({ icon: '📈', title: 'Aumenta tu base de cotización RETA',
+      desc: `Cotizando por una base un 20% superior (${fmt(baseAlta)} €/mes) tu pensión estimada sería ${fmt(pensionAlta)} €/mes. Evalúa el coste-beneficio con tu asesor: cuántos años cotizas por esa base mayor y cuánto ganará en pensión.`,
+      gain: `+${fmt(Math.max(0,pensionAlta-d.pension))} €/mes en pensión` });
+  }
+
+  // 3. Plan de pensiones
+  if (d.planTotal === 0) {
+    mejoras.push({ icon: '🏦', title: 'Complementa con ahorro privado (Pilar 2 y 3)',
+      desc: `Aportando 200 €/mes a un plan de pensiones individual obtendrías ventaja fiscal ahora (reduce tu base imponible IRPF hasta 1.500 €/año) y un complemento mensual en la jubilación. Los planes de empresa permiten hasta 8.500 €/año adicionales.`,
+      gain: 'Capital complementario + ahorro fiscal anual' });
+  }
+
+  // 4. Lagunas
+  if (d.lagunas > 0) {
+    mejoras.push({ icon: '🔍', title: 'Reconsulta y acredita periodos no registrados',
+      desc: `Tienes ${d.lagunas} meses de lagunas declaradas. Si tienes documentación de trabajo no registrado (nóminas, contratos, TC2), puedes reclamar su acreditación al INSS. Cada mes recuperado mejora tu base reguladora.`,
+      gain: 'Mejora directa en BR y porcentaje aplicado' });
+  }
+
+  // 5. Jubilación demorada
+  if ((d.modalidad === 'ordinaria' || d.modalidad === 'anticipada_voluntaria') && d.edad >= 64) {
+    const pensionDemorada = Math.min(d.pension * 1.04, d.PENSION_MAX);
+    mejoras.push({ icon: '🎯', title: 'Trabaja 1 año más allá de la edad legal (+4%)',
+      desc: `Si trabajas un año completo más allá de tu edad legal de jubilación (${d.edadLegal.toFixed(0)} años y ${Math.round((d.edadLegal%1)*12)} meses), tu pensión se incrementa un 4% permanente. Alternativa: pago único al jubilarte.`,
+      gain: `+${fmt(d.pension*0.04)} €/mes más · ${fmt(d.pension*0.04*14)} €/año adicionales` });
+  }
+
+  // 6. Brecha género
+  if (d.brechaHijos === 0) {
+    mejoras.push({ icon: '👨‍👩‍👧', title: 'Consulta el complemento de brecha de género',
+      desc: 'Si tienes hijos/as y la maternidad/paternidad afectó a tu carrera profesional (interrupciones, reducciones, excedencias), podrías tener derecho al complemento de brecha de género. Consulta al INSS con tu libro de familia.',
+      gain: 'Hasta +7% adicional permanente sobre la pensión' });
+  }
+
+  // 7. Jubilación activa
+  if (d.modalidad !== 'activa') {
+    mejoras.push({ icon: '💼', title: 'Valora la jubilación activa si tienes actividad',
+      desc: 'La jubilación activa te permite cobrar el 50% de tu pensión mientras trabajas (a tiempo completo o parcial). No hay penalización. Al cesar definitivamente, recuperas el 100% de la pensión.',
+      gain: '50% pensión + ingresos laborales simultáneos' });
+  }
+
+  // 8. Modelo 146 IRPF
+  mejoras.push({ icon: '📄', title: 'Presenta el Modelo 146 para ajustar retenciones IRPF',
+    desc: 'Si tienes otras rentas (alquileres, planes de pensiones, dividendos) o situaciones personales que afecten al IRPF, el Modelo 146 te permite solicitar una retención ajustada y evitar sorpresas en la declaración de la Renta.',
+    gain: 'Optimización fiscal — evita cuotas de IRPF en junio' });
+
+  document.getElementById('mejoras-content').innerHTML = mejoras.map(m => `
+    <div class="mejora-card">
+      <div class="mejora-icon">${m.icon}</div>
+      <div>
+        <div class="mejora-title">${m.title}</div>
+        <div class="mejora-desc">${m.desc}</div>
+        <div class="mejora-gain">✓ ${m.gain}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderNovedades() {
+  const novedades = [
+    { color: '#2563eb', cat: 'Cómputo BR', titulo: 'Cómputo dual obligatorio (2026–2044)',
+      desc: 'Desde 2026, la TGSS calcula la pensión con ambos sistemas (25 y 27 años) y aplica el más favorable de oficio. No hay que solicitarlo. Esta obligación se mantiene hasta 2044.' },
+    { color: '#d97706', cat: 'MEI', titulo: 'Mecanismo de Equidad Intergeneracional: 0.80% en 2026',
+      desc: 'Cotización adicional solidaria: empresa 0.58% + trabajador 0.22% sobre la BC. Subirá al 1.20% en 2029. No genera derechos individuales: es un fondo colectivo.' },
+    { color: '#dc2626', cat: 'Anticipada', titulo: 'Tabla mensual de coeficientes reductores (desde 2024)',
+      desc: 'Desde enero 2024, los coeficientes reductores se calculan mes a mes (antes trimestral). Voluntaria máx. 30%; involuntaria máx. 22.5%. La penalización es permanente.' },
+    { color: '#16a34a', cat: 'RETA', titulo: 'Autónomos: cotización por rendimientos (2023–2032)',
+      desc: 'Los autónomos cotizan según rendimientos netos reales en 15 tramos. Regularización anual. Plenamente vigente en 2026. Tramos y cuotas revisados progresivamente hasta 2032.' },
+    { color: '#16a34a', cat: 'Activa', titulo: 'Jubilación activa ampliada: compatible a tiempo completo',
+      desc: 'Desde 2024 (Ley 21/2021), la jubilación activa es compatible con trabajo a tiempo completo. Antes solo era posible a tiempo parcial. Se percibe el 50% de la pensión.' },
+    { color: '#2563eb', cat: 'Género', titulo: 'Complemento de brecha de género vigente y mejorado',
+      desc: 'Mujeres (y hombres en determinados casos) con hijos donde la parentalidad afectó a la carrera: 3.5% (1 hijo), 5% (2 hijos), 7% (3+). Actualizado en 2024.' },
+    { color: '#1a1a1a', cat: 'Tope', titulo: 'Pensión máxima 2026: 3.175,04 €/mes',
+      desc: 'Se actualiza cada enero con el IPC real del año anterior. Quien supere este límite no percibe más aunque su pensión calculada sea superior. Revisado anualmente.' },
+    { color: '#16a34a', cat: 'Revalorización', titulo: 'Revalorización garantizada con IPC real',
+      desc: 'La Ley 21/2021 garantiza la revalorización anual de todas las pensiones con el IPC real del año anterior. Elimina el índice de revalorización de 0.25% que existía antes.' },
+    { color: '#dc2626', cat: '⚠ Limitación', titulo: 'Edad legal 2026: 66 años y 10 meses',
+      desc: 'Con menos de 38 años y 3 meses cotizados: 66a 10m. Con 38a 3m o más: 65 años. La edad subirá a 67 años en 2027 y se mantendrá. Es el mayor cambio que afecta a los nacidos después de 1960.' },
+    { color: '#9ca3af', cat: '⚠ Fiscal', titulo: 'IRPF: las pensiones tributan como rendimiento del trabajo',
+      desc: 'Sin exención. Retención desde el primer euro. La pensión cuenta para calcular la obligación de declarar. Excepción: incapacidad permanente absoluta y gran invalidez están exentas.' },
+  ];
+
+  document.getElementById('novedades-content').innerHTML = novedades.map(n => `
+    <div class="novedad-item">
+      <div class="nv-dot" style="background:${n.color}"></div>
+      <div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap">
+          <span style="font-size:14px;font-weight:600;color:#1a1a1a">${n.titulo}</span>
+          <span class="badge badge-info">${n.cat}</span>
+        </div>
+        <div style="font-size:13px;color:#666;line-height:1.55">${n.desc}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('recursos-content').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${[
+        ['Sede Electrónica Seguridad Social', 'https://sede.seg-social.gob.es', 'Vida laboral, bases, simulador pensión, solicitud jubilación'],
+        ['Portal importa.gob.es (app Tu SS)', 'https://importa.seg-social.gob.es', 'App móvil: vida laboral, simulación y gestión de prestaciones'],
+        ['INSS — Instituto Nacional SS', 'https://www.seg-social.es', 'Tramitación oficial de la pensión. Cita previa en oficinas'],
+        ['BOE — LGSS (RDL 8/2015)', 'https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724', 'Marco legal de pensiones — texto consolidado'],
+        ['BOE — RDL 2/2023 (Reforma)', 'https://www.boe.es/buscar/doc.php?id=BOE-A-2023-14204', 'Reforma 2023: MEI, cómputo dual, convergencia RETA'],
+        ['Agencia Tributaria', 'https://www.agenciatributaria.es', 'IRPF sobre pensiones, Modelo 146, declaración Renta'],
+      ].map(([n,u,d]) => `
+        <div style="padding:10px 0;border-bottom:1px solid #f0f0f0">
+          <a href="${u}" target="_blank" style="font-size:14px;font-weight:600;color:#2563eb;text-decoration:none">${n}</a>
+          <div style="font-size:11px;color:#aaa;margin:2px 0">${u}</div>
+          <div style="font-size:13px;color:#666">${d}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ─── DOCUMENTO EMPRESA ─────────────────────────────────────────────────────
+function generarDoc() {
+  const nombre  = document.getElementById('doc-nombre').value || '[Tu nombre completo]';
+  const dni     = document.getElementById('doc-dni').value || '[DNI/NIE]';
+  const empresa = document.getElementById('doc-empresa').value || '[Nombre empresa]';
+  const cif     = document.getElementById('doc-cif').value || '[CIF]';
+  const rrhh    = document.getElementById('doc-rrhh').value || '[Responsable RRHH]';
+  const ciudad  = document.getElementById('doc-ciudad').value || '[Ciudad]';
+  const genero  = document.getElementById('doc-genero').value; // 'm' o 'f'
+  const modalidadDoc = document.getElementById('doc-modalidad').value;
+
+  const fechaUltVal = document.getElementById('doc-fecha-ult').value;
+  const fechaVal    = document.getElementById('doc-fecha').value;
+  const fechaUlt = fechaUltVal
+    ? new Date(fechaUltVal).toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'})
+    : '[fecha último día laboral]';
+  const fecha = fechaVal
+    ? new Date(fechaVal).toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'})
+    : '[fecha]';
+
+  // ── Formas de género ────────────────────────────────────────────────────
+  const esF = genero === 'f';
+  const tratamiento   = esF ? 'Dña.'   : 'D.';
+  const articulo      = esF ? 'la'     : 'el';
+  const trabajadoraS  = esF ? 'trabajadora' : 'trabajador';
+  const firmante      = esF ? 'la firmante' : 'el firmante';
+  const interesadaS   = esF ? 'la interesada' : 'el interesado';
+  const jubilada      = esF ? 'jubilada'   : 'jubilado';
+
+  // ── Nombre de la modalidad (para el cuerpo) ─────────────────────────────
+  const nombresModalidad = {
+    ordinaria:               'jubilación ordinaria',
+    anticipada_voluntaria:   'jubilación anticipada voluntaria',
+    anticipada_involuntaria: 'jubilación anticipada involuntaria',
+    demorada:                'jubilación demorada',
+    activa:                  'jubilación activa compatible con trabajo',
+    parcial:                 'jubilación parcial con reducción de jornada',
+  };
+  const nombreMod = nombresModalidad[modalidadDoc] || 'jubilación';
+
+  // ── Documentación requerida según modalidad ─────────────────────────────
+  // Punto 1 siempre: certificado de empresa con bases de cotización
+  // Puntos adicionales según modalidad
+  let puntosDoc = [];
+
+  puntosDoc.push(
+    '<strong>1. Certificado de empresa</strong> con las bases de cotización de los últimos ' +
+    '25-29 años (o desde el inicio de la relación laboral, si fuera inferior), ' +
+    'detallando mensualmente las cotizaciones a la Seguridad Social (art. 205 y 210 LGSS).'
+  );
+
+  puntosDoc.push(
+    '<strong>2. Confirmación del período de preaviso</strong> aplicable según convenio colectivo ' +
+    'y/o contrato de trabajo, indicando la fecha efectiva de extinción del contrato.'
+  );
+
+  puntosDoc.push(
+    '<strong>3. Liquidación de haberes</strong>: vacaciones no disfrutadas, pagas extraordinarias ' +
+    'prorrateadas y cualquier otro concepto económico pendiente a la fecha de extinción del contrato.'
+  );
+
+  // Puntos específicos por modalidad
+  if (modalidadDoc === 'anticipada_involuntaria') {
+    puntosDoc.push(
+      '<strong>4. Carta de despido o resolución del ERE/ERTE</strong> que acredite el cese ' +
+      'involuntario de la relación laboral, junto con el certificado de empresa a efectos del ' +
+      'Servicio Público de Empleo Estatal (SEPE), conforme al art. 207 LGSS.'
+    );
+    puntosDoc.push(
+      '<strong>5. Certificado de cotizaciones</strong> al desempleo de los últimos 6 años, ' +
+      'necesario para acreditar el período mínimo de desempleo previo a la solicitud (art. 207.1.c LGSS).'
+    );
+  } else if (modalidadDoc === 'parcial') {
+    puntosDoc.push(
+      '<strong>4. Acuerdo de reducción de jornada</strong> entre empresa y persona ' +
+      wordTrabajadora(esF) + ', especificando el porcentaje de reducción acordado ' +
+      '(entre el 25% y el 75%), el nuevo horario y la retribución proporcional (art. 215 LGSS).'
+    );
+    puntosDoc.push(
+      '<strong>5. Contrato de relevo</strong> suscrito con una persona desempleada o con ' +
+      'contrato temporal, que cubra al menos la jornada reducida por ' + firmante + ', ' +
+      'conforme al art. 215 LGSS y RD 1131/2002.'
+    );
+    puntosDoc.push(
+      '<strong>6. Confirmación de la base de cotización</strong> a aplicar durante la ' +
+      'jubilación parcial, tanto para la parte en activo como para la parte ' + jubilada + '.'
+    );
+  } else if (modalidadDoc === 'activa') {
+    puntosDoc.push(
+      '<strong>4. Certificado de vida laboral actualizado</strong> que acredite el cumplimiento ' +
+      'de la edad ordinaria de jubilación, necesario para solicitar la compatibilidad con el ' +
+      'trabajo por cuenta ajena conforme al art. 214 LGSS (Ley 21/2021).'
+    );
+    puntosDoc.push(
+      '<strong>5. Alta en Seguridad Social</strong> en el régimen correspondiente durante ' +
+      'el período de jubilación activa, confirmando la continuidad de cotización mientras ' +
+      wordTrabajadora(esF) + ' percibe el 50% de la pensión.'
+    );
+  } else if (modalidadDoc === 'demorada') {
+    puntosDoc.push(
+      '<strong>4. Certificado de cotizaciones adicionales</strong> correspondientes al período ' +
+      'de demora voluntaria más allá de la edad ordinaria de jubilación, a efectos del cómputo ' +
+      'del incremento del 4% por año completo (art. 210.2 LGSS).'
+    );
+  } else if (modalidadDoc === 'anticipada_voluntaria') {
+    puntosDoc.push(
+      '<strong>4. Informe de vida laboral actualizado</strong> que acredite el cumplimiento ' +
+      'del mínimo de 35 años cotizados exigido para la jubilación anticipada voluntaria ' +
+      '(art. 208 LGSS), firmado por la Tesorería General de la Seguridad Social.'
+    );
+  }
+
+  // ── Párrafo adicional según modalidad ───────────────────────────────────
+  let parrafoEspecial = '';
+  if (modalidadDoc === 'parcial') {
+    parrafoEspecial = '<p>Asimismo, solicito que se inicie el proceso de selección de la persona ' +
+      'relevista conforme a lo establecido en el art. 215 LGSS, garantizando la cobertura de ' +
+      'la jornada reducida durante el período de jubilación parcial.</p>';
+  } else if (modalidadDoc === 'activa') {
+    parrafoEspecial = '<p>En virtud de lo dispuesto en el art. 214 LGSS y la Ley 21/2021, ' +
+      'comunico mi intención de acogerme a la <strong>jubilación activa</strong>, compatibilizando ' +
+      'el percibo del 50% de la pensión con la continuación de la actividad laboral por cuenta ajena. ' +
+      'Al cesar definitivamente en la actividad, se recuperará el 100% de la pensión.</p>';
+  } else if (modalidadDoc === 'anticipada_involuntaria') {
+    parrafoEspecial = '<p>Dado que el cese de la relación laboral se ha producido por causas ' +
+      'no imputables a ' + firmante + ' (despido, ERE, ERTE extinguido u otras causas objetivas), ' +
+      'y habiendo permanecido en situación de desempleo el período mínimo legalmente exigido, ' +
+      'solicito toda la documentación necesaria para acreditar estas circunstancias ante el INSS.</p>';
+  } else if (modalidadDoc === 'demorada') {
+    parrafoEspecial = '<p>Habiendo superado la edad ordinaria de jubilación y optando por ' +
+      'continuar en activo voluntariamente, solicito la documentación que acredite los períodos ' +
+      'adicionales cotizados a efectos del incremento del 4% por año completo de demora ' +
+      '(art. 210.2 LGSS), con un máximo acumulable del 36%.</p>';
+  }
+
+  // ── Construcción del HTML de la carta ───────────────────────────────────
+  const puntosHTML = puntosDoc.map(p => '<p>' + p + '</p>').join('\n    ');
+
+  document.getElementById('doc-preview-content').innerHTML =
+    '<h3>COMUNICACIÓN DE JUBILACIÓN Y SOLICITUD DE DOCUMENTACIÓN</h3>' +
+    '<p><strong>' + nombre + '</strong><br>DNI/NIE: ' + dni + '</p>' +
+    '<br>' +
+    '<p><strong>' + ciudad + ', ' + fecha + '</strong></p>' +
+    '<br>' +
+    '<p>A la atención de:<br>' +
+    '<strong>' + rrhh + '</strong><br>' +
+    'Departamento de Recursos Humanos<br>' +
+    '<strong>' + empresa + '</strong> — CIF: ' + cif + '</p>' +
+    '<br>' +
+    '<p>Estimada persona responsable de Recursos Humanos:</p>' +
+    '<p>' + tratamiento + ' <strong>' + nombre + '</strong>, con DNI/NIE <strong>' + dni + '</strong>, ' +
+    'en mi calidad de persona ' + trabajadoraS + ' en activo en esta empresa, me dirijo a usted para ' +
+    'comunicarle formalmente mi intención de acceder a la <strong>' + nombreMod + '</strong> ' +
+    'a partir del día <strong>' + fechaUlt + '</strong>.</p>' +
+    '<p>A tales efectos, y de conformidad con lo establecido en la Ley General de la Seguridad Social ' +
+    '(Real Decreto Legislativo 8/2015, de 30 de octubre) y el Real Decreto-ley 2/2023, de 16 de marzo, ' +
+    'le solicito la siguiente documentación:</p>' +
+    puntosHTML +
+    (parrafoEspecial ? '\n    ' + parrafoEspecial : '') +
+    '<br>' +
+    '<p>Quedo a su disposición para cualquier consulta adicional o para aportar la documentación ' +
+    'que se estime necesaria. Asimismo, solicito acuse de recibo del presente escrito.</p>' +
+    '<br>' +
+    '<p>Atentamente,</p>' +
+    '<br>' +
+    '<p>_________________________________</p>' +
+    '<p><strong>' + nombre + '</strong><br>DNI/NIE: ' + dni + '<br>Fecha: ' + fecha + '</p>' +
+    '<br><br>' +
+    '<p><strong>RECIBÍ — Firma y sello de la empresa:</strong></p>' +
+    '<br>' +
+    '<p>_________________________________</p>' +
+    '<p>En ' + ciudad + ', a ___ de __________ de 20___</p>' +
+    '<br>' +
+    '<p style="font-size:11px;color:#aaa;border-top:1px solid #eee;padding-top:10px">' +
+    'Documento generado por Calculadora de Jubilación España 2026. Basado en la normativa vigente ' +
+    '(LGSS RDL 8/2015, RDL 2/2023). No sustituye al asesoramiento jurídico. Consulte con el INSS.' +
+    '</p>';
+
+  document.getElementById('doc-preview-box').classList.remove('hidden');
+}
+
+// Helper para género en texto corrido
+function wordTrabajadora(esF) {
+  return esF ? 'la trabajadora' : 'el trabajador';
+}
+
+
+function imprimirDoc() {
+  generarDoc();
+  setTimeout(() => {
+    const contenido = document.getElementById('doc-preview-content').innerHTML;
+    const win = window.open('', '_blank', 'width=850,height=1100');
+    win.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+    <title>Carta de Jubilación</title>
+    <style>
+      body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#1a1a1a;font-size:14px;line-height:1.9}
+      h3{text-align:center;font-size:16px;margin-bottom:1.5rem}
+      @media print{body{margin:20px}}
+    </style></head><body>${contenido}
+    <script>window.onload=function(){window.print();}<\/script>
+    </body></html>`);
+    win.document.close();
+  }, 150);
+}
+
+function abrirInformeImpresion() {
+  const d = resultData;
+  if (!d.pension) { alert('Primero calcula tu jubilación antes de imprimir el informe.'); return; }
+
+  function fmtN(n) { return Math.round(n).toLocaleString('es-ES'); }
+  function fmtFechaLarga(date) {
+    return new Date(date).toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'});
+  }
+
+  const mejoras = [];
+  if (d.modalidad === 'anticipada_voluntaria' || d.modalidad === 'ordinaria') {
+    const g = d.brFinal*(d.pctBase/100)*(1-Math.max(0,d.coefReductor-0.002))*(1+d.pctBrecha/100) - d.pension;
+    if (g > 0) mejoras.push(`<li>Trabajar 1 mes más reduce el coeficiente reductor: +${fmtN(g)} €/mes adicionales permanentes.</li>`);
+  }
+  if (d.regime === 'autonomo') {
+    const baseAlta = Math.min(d.baseCot*1.20, 4720.50);
+    const pAlta = Math.min(baseAlta*0.97*(d.pctBase/100)*(1-d.coefReductor), d.PENSION_MAX);
+    mejoras.push(`<li>Aumentar base RETA un 20% (${fmtN(baseAlta)} €/mes): pensión estimada ${fmtN(pAlta)} €/mes.</li>`);
+  }
+  if (d.brechaHijos === 0) mejoras.push('<li>Consultar complemento brecha de género si tienes hijos: hasta +7% adicional permanente.</li>');
+  if (d.planTotal === 0) mejoras.push('<li>Complementar con plan de pensiones privado (hasta 1.500 €/año deducibles en IRPF).</li>');
+  mejoras.push('<li>Presentar Modelo 146 para ajustar retenciones IRPF sobre la pensión.</li>');
+  if ((d.modalidad === 'ordinaria') && d.edad >= 64) {
+    mejoras.push(`<li>Jubilación demorada 1 año: +4% permanente sobre la pensión (+${fmtN(d.pension*0.04)} €/mes).</li>`);
+  }
+
+  const tipoAccesoLimpio = d.tipoAcceso.replace(/·/g,'—');
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Informe de Jubilación 2026</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    color:#1a1a1a;background:#fff;font-size:13px;line-height:1.6;padding:30px 40px}
+  h1{font-size:24px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px}
+  h2{font-size:14px;font-weight:700;color:#1a1a1a;margin:22px 0 8px;text-transform:uppercase;
+    letter-spacing:.5px;border-bottom:1.5px solid #1a1a1a;padding-bottom:4px}
+  h3{font-size:12px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.4px;margin:14px 0 6px}
+  .subtitle{font-size:12px;color:#999;margin-bottom:24px}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  .hero-card{border-radius:10px;padding:18px;text-align:center}
+  .hero-blue{background:#eef4ff}
+  .hero-green{background:#f0fdf4}
+  .hero-card .label{font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+  .hero-card .amount{font-size:30px;font-weight:700;letter-spacing:-1px}
+  .hero-blue .amount{color:#1e40af}
+  .hero-green .amount{color:#166534}
+  .hero-card .sub{font-size:11px;color:#999;margin-top:3px}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+  .metric{background:#f8f8f6;border-radius:8px;padding:12px 10px;text-align:center}
+  .metric .ml{font-size:9px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+  .metric .mv{font-size:17px;font-weight:700;color:#1a1a1a}
+  .metric .ms{font-size:10px;color:#aaa;margin-top:2px}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+  td,th{padding:7px 10px;text-align:left;border-bottom:1px solid #f0f0f0}
+  th{font-weight:700;background:#f8f8f6;color:#1a1a1a;font-size:11px;text-transform:uppercase}
+  td:last-child,th:last-child{text-align:right}
+  .alert{border-radius:8px;padding:10px 13px;font-size:12px;margin:8px 0;border-left:3px solid}
+  .alert-w{background:#fffbeb;color:#92400e;border-color:#d97706}
+  .alert-i{background:#eef4ff;color:#1e40af;border-color:#2563eb}
+  .alert-s{background:#f0fdf4;color:#166534;border-color:#16a34a}
+  .alert-d{background:#fef2f2;color:#991b1b;border-color:#dc2626}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .timeline-item{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+  .t-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:2px}
+  .t-info .t-date{font-size:10px;font-weight:700;color:#999;text-transform:uppercase}
+  .t-info .t-title{font-size:12px;font-weight:700;color:#1a1a1a}
+  .t-info .t-desc{font-size:11px;color:#666;margin-top:1px}
+  .mejora{display:flex;gap:8px;padding:8px 10px;background:#f8f8f6;border-radius:8px;margin-bottom:6px;align-items:flex-start}
+  .mejora-icon{font-size:16px;flex-shrink:0}
+  .mejora-body .mt{font-size:12px;font-weight:700;color:#1a1a1a}
+  .mejora-body .md{font-size:11px;color:#666}
+  .novedad{padding:8px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:8px}
+  .nd{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+  .novedad .nt{font-size:12px;font-weight:700;color:#1a1a1a}
+  .novedad .nd2{font-size:11px;color:#666;margin-top:1px}
+  .doc-carta{border:1px solid #ddd;border-radius:10px;padding:24px;margin-top:8px;
+    font-family:Georgia,serif;font-size:13px;line-height:1.9;background:#fff}
+  .doc-carta h3{font-size:14px;text-align:center;border:none;text-transform:none;letter-spacing:0;margin-bottom:16px}
+  footer{margin-top:24px;padding-top:12px;border-top:1px solid #eee;font-size:10px;color:#aaa;text-align:center}
+  .page-break{page-break-before:always}
+  @page{margin:18mm 15mm}
+  @media print{
+    body{padding:0}
+    .page-break{page-break-before:always}
+    .no-print{display:none}
+    h2{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+
+<h1>Informe de Jubilación</h1>
+<div class="subtitle">España 2026 · Normativa vigente LGSS · Generado el ${fmtFechaLarga(new Date())} · Estimación orientativa</div>
+
+<div class="hero">
+  <div class="hero-card hero-blue">
+    <div class="label">Pensión mensual bruta</div>
+    <div class="amount">${fmtN(d.pension)} €</div>
+    <div class="sub">14 pagas · antes de IRPF</div>
+  </div>
+  <div class="hero-card hero-green">
+    <div class="label">Pensión mensual neta</div>
+    <div class="amount">${fmtN(d.pensionNeta)} €</div>
+    <div class="sub">Estimación tras IRPF</div>
+  </div>
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="ml">Edad jubilación</div><div class="mv">${d.edad} años</div></div>
+  <div class="metric"><div class="ml">Años cotizados</div><div class="mv">${d.anyosCotFinal.toFixed(1)}</div></div>
+  <div class="metric"><div class="ml">Base reguladora</div><div class="mv">${fmtN(d.brFinal)} €</div><div class="ms">${d.sistemaUsado}</div></div>
+  <div class="metric"><div class="ml">% aplicado</div><div class="mv">${(d.pctBase*(1-d.coefReductor)*(1+d.pctBrecha/100)).toFixed(1)}%</div></div>
+</div>
+
+${d.warnings && d.warnings.length > 0 ? d.warnings[0] : "" ? `<div class="alert alert-d"><strong>⚠ Atención:</strong> ${d.warnings && d.warnings.length > 0 ? d.warnings[0] : ""}</div>` : ''}
+${d.aplicoMax ? `<div class="alert alert-w"><strong>Tope máximo 2026 aplicado:</strong> La pensión calculada supera el límite legal de ${fmtN(d.PENSION_MAX)} €/mes.</div>` : ''}
+${d.aplicoMin ? `<div class="alert alert-i"><strong>Complemento a mínimos:</strong> Tu pensión es inferior a la mínima legal (${fmtN(d.PENSION_MIN_SC)} €/mes para 65+ sin cónyuge).</div>` : ''}
+${d.modalidad==='anticipada_voluntaria'&&d.requisitosOk ? `<div class="alert alert-w"><strong>Anticipada voluntaria:</strong> Coeficiente reductor permanente del ${(d.coefReductor*100).toFixed(2)}% (${d.mesesAnticipacion} meses × tabla 2024).</div>` : ''}
+${d.modalidad==='demorada' ? `<div class="alert alert-s"><strong>Jubilación demorada:</strong> Incremento del ${(Math.abs(d.coefReductor)*100).toFixed(0)}% aplicado sobre la pensión base.</div>` : ''}
+
+<h2>1. Cálculo detallado</h2>
+<table>
+  <tr><th>Concepto</th><th>Valor</th></tr>
+  <tr><td>Régimen</td><td>${d.regime==='autonomo'?'RETA — Autónomos':'Régimen General'}</td></tr>
+  <tr><td>Modalidad de jubilación</td><td>${tipoAccesoLimpio}</td></tr>
+  <tr><td>Base de cotización mensual</td><td>${fmtN(d.baseCot)} €</td></tr>
+  <tr><td>Sistema de cómputo BR</td><td>${d.sistemaUsado}</td></tr>
+  <tr><td>Base reguladora mensual</td><td>${fmtN(d.brFinal)} €</td></tr>
+  <tr><td>Años cotizados al jubilarse</td><td>${d.anyosCotFinal.toFixed(1)} años</td></tr>
+  <tr><td>% base por cotización</td><td>${d.pctBase.toFixed(2)}%</td></tr>
+  ${d.coefReductor>0?`<tr><td>Coeficiente reductor (anticipada)</td><td style="color:#dc2626">-${(d.coefReductor*100).toFixed(2)}% permanente</td></tr>`:''}
+  ${d.coefReductor<0?`<tr><td>Incremento (demorada)</td><td style="color:#16a34a">+${(Math.abs(d.coefReductor)*100).toFixed(0)}%</td></tr>`:''}
+  ${d.pctBrecha>0?`<tr><td>Complemento brecha de género</td><td style="color:#16a34a">+${d.pctBrecha}% (${d.brechaHijos} hijo/s)</td></tr>`:''}
+  <tr><td>% total aplicado sobre BR</td><td><strong>${(d.pctBase*(1-d.coefReductor)*(1+d.pctBrecha/100)).toFixed(2)}%</strong></td></tr>
+  <tr><td><strong>Pensión bruta mensual</strong></td><td><strong>${fmtN(d.pension)} €</strong></td></tr>
+  <tr><td>Pensión bruta anual (14 pagas)</td><td>${fmtN(d.pension*14)} €</td></tr>
+</table>
+
+<div class="two-col" style="margin-top:12px">
+  <div>
+    <h3>Comparativa sistemas BR</h3>
+    <table>
+      <tr><th>Sistema</th><th>Pensión est.</th></tr>
+      <tr><td>25 años</td><td>${fmtN(d.br25*(d.pctBase/100)*(1-d.coefReductor)*(1+d.pctBrecha/100))} €/mes</td></tr>
+      <tr><td>27 años (29-2)</td><td>${fmtN(d.br27*(d.pctBase/100)*(1-d.coefReductor)*(1+d.pctBrecha/100))} €/mes</td></tr>
+    </table>
+  </div>
+  <div>
+    <h3>MEI 2026 (0.80% BC)</h3>
+    <table>
+      <tr><th>Parte</th><th>Importe</th></tr>
+      <tr><td>Empresa (0.58%)</td><td>${d.meiEmpresa.toFixed(2)} €/mes</td></tr>
+      <tr><td>Trabajador (0.22%)</td><td>${d.meiTrabajador.toFixed(2)} €/mes</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>2. Fiscalidad — IRPF</h2>
+<table>
+  <tr><th>Concepto</th><th>Importe</th></tr>
+  <tr><td>Pensión bruta mensual</td><td>${fmtN(d.pension)} €</td></tr>
+  <tr><td>Pensión bruta anual (14 pagas)</td><td>${fmtN(d.pension*14)} €</td></tr>
+  <tr><td>Retención IRPF estimada (mensual)</td><td style="color:#dc2626">-${fmtN(d.irpfMensual)} €</td></tr>
+  <tr><td>Tipo efectivo IRPF estimado</td><td>${d.tipoIRPF.toFixed(1)}%</td></tr>
+  <tr><td><strong>Pensión neta mensual</strong></td><td><strong style="color:#16a34a">${fmtN(d.pensionNeta)} €</strong></td></tr>
+</table>
+
+<h2>3. Tasa de reemplazo y proyección IPC</h2>
+<table>
+  <tr><th>Concepto</th><th>%</th></tr>
+  <tr><td>Tasa de reemplazo — solo pensión pública</td><td>${d.tasaReemplazo}%</td></tr>
+  <tr><td>Tasa de reemplazo — con planes privados</td><td>${d.tasaTotal}%</td></tr>
+</table>
+<h3>Proyección con IPC estimado ${d.ipc}% anual</h3>
+<table>
+  <tr>${d.proyeccion.map(p=>`<th>${p.anio}</th>`).join('')}</tr>
+  <tr>${d.proyeccion.map(p=>`<td>${fmtN(p.valor)} €/mes</td>`).join('')}</tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>4. Hoja de ruta — Pasos hacia la jubilación</h2>
+<div style="margin-top:8px">
+  ${[
+    {color:'#16a34a',date:'Ahora mismo',title:'Obtén informe de vida laboral',desc:'importa.gob.es o app "Tu Seguridad Social". Verifica periodos cotizados y corrige errores.'},
+    {color:'#2563eb',date:'En 1–2 meses',title:'Solicita informe de bases de cotización',desc:'Descarga en Sede Electrónica. Detecta lagunas y guarda el documento.'},
+    {color:'#2563eb',date:'En 2–3 meses',title:'Consulta personalizada en el INSS',desc:'Cita previa para simulación oficial. Lleva DNI e informe de vida laboral.'},
+    {color:'#d97706',date:'12 meses antes',title:'Comunica formalmente a la empresa',desc:'Carta de preaviso. Solicita certificado de empresa con bases de cotización de últimos 25 años.'},
+    {color:'#d97706',date:'6 meses antes',title:'Reúne toda la documentación',desc:'DNI, vida laboral, certificado empresa, últimas nóminas/recibos, libro de familia si procede.'},
+    {color:'#dc2626',date:'3 meses antes',title:'Presenta solicitud oficial (TA.177)',desc:'En INSS, por correo o Sede Electrónica. Pago retroactivo a la fecha de solicitud.'},
+    {color:'#d97706',date:'1 mes antes',title:'Coordina IRPF y finiquito',desc:'Revisa retenciones con asesor fiscal. Coordina finiquito, vacaciones y pagas pendientes.'},
+    {color:'#16a34a',date:'Fecha de jubilación',title:'Inicio de la pensión',desc:`${fmtN(d.pension)} €/mes brutos · ${fmtN(d.pensionNeta)} €/mes netos. INSS resuelve en ~90 días hábiles.`},
+  ].map(it=>`
+    <div class="timeline-item">
+      <div class="t-dot" style="background:${it.color}"></div>
+      <div class="t-info">
+        <div class="t-date">${it.date}</div>
+        <div class="t-title">${it.title}</div>
+        <div class="t-desc">${it.desc}</div>
+      </div>
+    </div>`).join('')}
+</div>
+
+<h2>5. Propuestas de mejora y optimización</h2>
+<ul style="padding-left:18px;font-size:12px;color:#1a1a1a;line-height:1.8">${mejoras.join('')}</ul>
+
+<h2>6. Novedades y limitaciones 2026</h2>
+${[
+  {color:'#2563eb',t:'Cómputo dual obligatorio (2026–2044)',d:'La SS aplica de oficio el sistema más favorable entre 25 y 27 años. No hay que solicitarlo.'},
+  {color:'#d97706',t:'MEI: 0.80% en 2026 (subirá al 1.20% en 2029)',d:'Fondo solidario colectivo. No genera derechos individuales. Empresa 0.58% + trabajador 0.22%.'},
+  {color:'#dc2626',t:'Coeficientes reductores mensuales (desde 2024)',d:'Penalización calculada mes a mes. Voluntaria máx. 30%; involuntaria máx. 22.5%. Permanente.'},
+  {color:'#16a34a',t:'RETA: cotización por rendimientos (2023–2032)',d:'15 tramos según rendimientos netos reales. Regularización anual en enero.'},
+  {color:'#16a34a',t:'Jubilación activa compatible a tiempo completo',d:'Desde 2024: 50% pensión + trabajo a tiempo completo. Al cesar: 100% pensión.'},
+  {color:'#1a1a1a',t:'Pensión máxima 2026: 3.175,04 €/mes',d:'Actualizada anualmente con IPC real del año anterior.'},
+  {color:'#dc2626',t:'Edad legal 2026: 66 años y 10 meses',d:'Con menos de 38a 3m cotizados. Con más: 65 años. Subirá a 67 años en 2027.'},
+].map(n=>`
+  <div class="novedad">
+    <div class="nd" style="background:${n.color}"></div>
+    <div><div class="nt">${n.t}</div><div class="nd2">${n.d}</div></div>
+  </div>`).join('')}
+
+<div class="page-break"></div>
+
+<h2>7. Carta de comunicación a la empresa</h2>
+<div class="doc-carta">
+  <h3>COMUNICACIÓN DE JUBILACIÓN Y SOLICITUD DE CERTIFICADO DE EMPRESA</h3>
+  <p><strong>[Nombre completo]</strong><br>DNI/NIE: [DNI/NIE]</p><br>
+  <p><strong>[Ciudad], ${fmtFechaLarga(new Date())}</strong></p><br>
+  <p>A la atención de:<br><strong>[Responsable RRHH]</strong><br>Departamento de Recursos Humanos<br><strong>[Empresa] — CIF: [CIF]</strong></p><br>
+  <p>Estimado/a Sr./Sra.:</p>
+  <p>D./Dña. <strong>[Nombre completo]</strong>, con DNI/NIE <strong>[DNI/NIE]</strong>, en mi calidad de trabajador/a en activo en esta empresa, me dirijo a usted para comunicarle formalmente mi intención de acceder a la <strong>${tipoAccesoLimpio}</strong> a partir del día <strong>[Fecha último día laboral]</strong>.</p>
+  <p>A tales efectos, y de conformidad con lo establecido en la LGSS (RDL 8/2015) y el RDL 2/2023, le solicito:</p>
+  <p><strong>1.</strong> Certificado de empresa con las bases de cotización de los últimos 25-29 años, detallando mensualmente las cotizaciones a la Seguridad Social.</p>
+  <p><strong>2.</strong> Confirmación del período de preaviso aplicable según convenio colectivo y/o contrato de trabajo.</p>
+  <p><strong>3.</strong> Liquidación de vacaciones, pagas extras prorrateadas y conceptos económicos pendientes a la fecha de extinción del contrato.</p>
+  <p><strong>4.</strong> [Si aplica jubilación parcial]: Suscripción del contrato de relevo conforme al art. 215 TRLGSS.</p><br>
+  <p>Quedo a su disposición para cualquier consulta adicional.</p><br>
+  <p>Atentamente,</p><br><br>
+  <p>________________________________</p>
+  <p><strong>[Nombre completo]</strong> · DNI/NIE: [DNI/NIE] · Fecha: ${fmtFechaLarga(new Date())}</p><br><br>
+  <p><strong>Recibí — Firma y sello empresa:</strong></p><br>
+  <p>________________________________</p>
+  <p>En _____________, a ___ de __________ de 20___</p>
+</div>
+
+<h2>8. Recursos oficiales</h2>
+<table>
+  <tr><th>Organismo</th><th>URL</th></tr>
+  <tr><td>Sede Electrónica SS (vida laboral, solicitud)</td><td>sede.seg-social.gob.es</td></tr>
+  <tr><td>Portal Tu Seguridad Social</td><td>importa.seg-social.gob.es</td></tr>
+  <tr><td>INSS — Instituto Nacional SS</td><td>seg-social.es</td></tr>
+  <tr><td>BOE — LGSS (RDL 8/2015)</td><td>boe.es/buscar/act.php?id=BOE-A-2015-11724</td></tr>
+  <tr><td>BOE — RDL 2/2023</td><td>boe.es/buscar/doc.php?id=BOE-A-2023-14204</td></tr>
+  <tr><td>Agencia Tributaria (IRPF)</td><td>agenciatributaria.es</td></tr>
+</table>
+
+<footer>
+  Calculadora de Jubilación España 2026 · Normativa: LGSS (RDL 8/2015), RDL 2/2023, Ley 21/2021 · Generado: ${fmtFechaLarga(new Date())} ·
+  <strong>Estimación orientativa. No sustituye al asesoramiento jurídico ni a la resolución oficial del INSS.</strong>
+</footer>
+
+<script>window.onload = function(){ window.print(); }<\/script>
+</body></html>`;
+
+  const win = window.open('', '_blank', 'width=900,height=1200');
+  if (!win) {
+    alert('El navegador ha bloqueado la ventana emergente. Permite las ventanas emergentes para este sitio y vuelve a intentarlo.');
+    return;
+  }
+  win.document.write(html);
+  win.document.close();
+}
+
+
+
+// ─── UTILIDADES ──────────────────────────────────────────────────────────────────────────
+// ─── NAVEGACIÓN ────────────────────────────────────────────────────────────
+function showTab(t) {
+  const tabs = ['resumen','desglose','timeline','mejoras','novedades','documento'];
+  tabs.forEach(x => document.getElementById('tab-'+x).classList.toggle('hidden', x !== t));
+  document.querySelectorAll('.tab').forEach((el, i) => {
+    el.classList.toggle('active', tabs[i] === t);
+  });
+  // Pre-rellenar modalidad del documento con la modalidad calculada
+  if (t === 'documento' && resultData.modalidad) {
+    const sel = document.getElementById('doc-modalidad');
+    if (sel) sel.value = resultData.modalidad;
+  }
+}
+
+function volverInput() {
+  document.getElementById('page-input').classList.remove('hidden');
+  document.getElementById('page-result').classList.add('hidden');
+  window.scrollTo(0, 0);
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('es-ES'); }
+function fmt_fecha(d) { return d.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' }); }
+
+</script>
+</body>
+</html>
